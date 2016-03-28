@@ -7,6 +7,10 @@ router.get('/user', function(req, res, next) {
 	});
 });
 
+router.get('/', function(req, res, next) {
+	res.sendFile('login.html', { root: 'public' });
+});
+
 module.exports = router;
 */
 
