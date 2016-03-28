@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Task Tester</title>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+<script src="javascripts/app.js"></script>
+</head>
+<body ng-app="tasklist" ng-controller="MainCtrl">
+  <h1>Tasks </h1>
+
+
+  <form ng-submit="addTask()" style = "margin-top30px;">
+    <input type="text" ng-model="titleContent"></input>
+    <input type="text" ng-model="dateContent"></input>
+    <button type="submit">Add Task</button>
+  </form>
+
+ <div>
+    {{test}}
+  </div>
+
+  <div ng-repeat="task in tasks | orderBy: dueDate">
+    <span>{{task.title}} - dueDate: {{task.dueDate}}</span>
+  </div>
+
+If you want to logout, go <a href="/signout">here</a>.
+</body>
+</html>

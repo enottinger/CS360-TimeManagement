@@ -5,13 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/tasklist');
-require('./models/Users');
-require('./models/Tasks');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+
+
+//Removed for passport
+//var routes = require('./routes/index');
+//var users = require('./routes/users');
 
 var app = express();
 
@@ -27,8 +26,32 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Removed for passport
+//app.use('/', routes);
+//app.use('/users', users);
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/tasklist');
+require('./models/user');
+require('./models/task');
+// Configuring Passport
+var passport = require('passport');
+var expressSession = require('express-session');
+app.use(expressSession({
+secret: 'mySecretKey',
+resave: true,
+saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Initialize Passport
+var initPassport = require('./passport/init');
+initPassport(passport);
+
+var routes = require('./routes/index')(passport);
 app.use('/', routes);
-app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
