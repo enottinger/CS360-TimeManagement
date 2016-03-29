@@ -10,6 +10,10 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
 
 .controller('AppCtrl', function($scope, $mdDialog, $mdMedia) {
   $scope.status = '  ';
+  
+   $scope.go = function ( path ) {
+    $location.path( path );
+  };
 
   $scope.showAdvanced = function(ev) {
     var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
