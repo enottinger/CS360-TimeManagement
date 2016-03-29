@@ -1,23 +1,55 @@
 <html lang="en" >
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Angular Material style sheet -->
+   <!-- Angular Material style sheet -->
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+	<script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
+	<script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.0-rc1/angular-material.js"></script>
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	<script src="javascripts/app2.js"></script>
   <style>
 	md-toolbar {
 		text-align: center;
 	}
 	md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
 		background-color: rgb(102, 97, 236);
+		color: white;
 	}
 	
 	a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab {
 		background-color: rgb(102, 97, 236);
-		color: rgb(231, 225, 247);
+		/*color: rgb(231, 225, 247);*/
+		color: white;
 	}
+	.dialogdemoBasicUsage #popupContainer {
+		position: relative; 
+	}
+	.dialogdemoBasicUsage .footer {
+		width: 100%;
+		text-align: center;
+		margin-left: 20px; 
+	}
+	.dialogdemoBasicUsage .footer, .dialogdemoBasicUsage .footer > code {
+		font-size: 0.8em;
+		margin-top: 50px; 
+	}
+	.dialogdemoBasicUsage button {
+		width: 200px; 
+	}
+	.dialogdemoBasicUsage div#status {
+	  color: #c60008; 
+	 }
   </style>
 </head>
-<body ng-app="BlankApp" ng-cloak>
+<body ng-controller="AppCtrl" class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="" ng-app="MyApp">
   <!--
     Your HTML content here
   -->
@@ -42,22 +74,62 @@
 			Sign Up
 		</md-button>
 	</div>	
-  <!-- Angular Material requires Angular.js Libraries -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+	
+	<div > 
+		  <div class="dialog-demo-content" layout="row" layout-wrap="" layout-margin="" layout-align="center">
+			<md-button class="md-primary md-raised" ng-click="showAdvanced($event)">
+			  Custom Dialog
+			</md-button>
+		  </div>
 
-  <!-- Angular Material Library -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-  
-  <!-- Your application bootstrap  -->
-  <script type="text/javascript">    
-    /**
-     * You must include the dependency on 'ngMaterial' 
-     */
-    angular.module('BlankApp', ['ngMaterial']);
-  </script>
-  
+		  <div ng-if="status" id="status">
+			<b layout="row" layout-align="center center" class="md-padding">
+			  {{status}}
+			</b>
+		  </div>
+
+		<script type="text/ng-template" id="dialog1.tmpl.html"><md-dialog aria-label="Add New Task"  ng-cloak>
+		  <form>
+			<md-toolbar>
+			  <div class="md-toolbar-tools" style="background-color: rgb(105, 239, 131); font-weight: bold">
+				<span flex></span>
+				<h2>Add New Task</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+				  <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+				</md-button>
+			  </div>
+			</md-toolbar>
+			<div style="padding: 20px 10px 10px 10px;">
+			<md-dialog-content>
+				<p>*Required Field</p>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">
+					<label for="tb_title">Title*:</label>
+					<input ng-model="Task.title" class="ng-pristine ng-valid md-input ng-touched" id="tb_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+					<label for="tb_DueDate">Due Date*:</label>
+					<input ng-model="Task.DueDate" class="ng-pristine ng-valid md-input ng-touched"id="tb_DueDate" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+					<label for="tb_description">Description:</label>
+					<input ng-model="Task.description" class="ng-pristine ng-valid md-input ng-touched" id="tb_description" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+					<label for="tb_category">Category:</label>
+					<input ng-model="Task.category" class="ng-pristine ng-valid md-input ng-touched" id="tb_category" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+			</md-dialog-content>
+			</div>
+
+			<md-dialog-actions layout="row" layout-align="center" style="padding-left: 0px">
+				<md-button class="md-raised md-primary" style="background-color: rgb(105, 239, 131);" ng-click="submit($event)">
+					Submit
+				</md-button>
+			</md-dialog-actions>
+		  </form>
+		</md-dialog>
+		</script>
+</div>
 </body>
 </html>
