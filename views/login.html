@@ -113,11 +113,11 @@
 				<p>*Required Field</p>
 				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">
 					<label for="tb_title">Title*:</label>
-					<input ng-model="Task.title" class="ng-pristine ng-valid md-input ng-touched" id="tb_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+					<input ng-model="titleContent" class="ng-pristine ng-valid md-input ng-touched" id="tb_title" aria-invalid="false"><div class="md-errors-spacer"></div>
 				</md-input-container>
 				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
 					<label for="tb_DueDate">Due Date*:</label>
-					<input ng-model="Task.DueDate" class="ng-pristine ng-valid md-input ng-touched"id="tb_DueDate" aria-invalid="false"><div class="md-errors-spacer"></div>
+					<input ng-model="dateContent" class="ng-pristine ng-valid md-input ng-touched"id="tb_DueDate" aria-invalid="false"><div class="md-errors-spacer"></div>
 				</md-input-container>
 				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
 					<label for="tb_description">Description:</label>
@@ -129,12 +129,12 @@
 				</md-input-container>
 			</md-dialog-content>
 			</div>
-
 			<md-dialog-actions layout="row" layout-align="center" style="padding-left: 0px">
-				<md-button class="md-raised md-primary" style="background-color: rgb(105, 239, 131);" ng-click="submit($event)">
+				<md-button class="md-raised md-primary" style="background-color: rgb(105, 239, 131);" ng-click="addTask($event)">
 					Submit
 				</md-button>
 			</md-dialog-actions>
+			
 		  </form>
 		</md-dialog>
 		</script>
