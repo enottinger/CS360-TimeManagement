@@ -1,0 +1,127 @@
+<!--CS 256
+Rachel Stone
+APP: DAY VIEW OF TASKS-->
+
+<html>
+<style>
+    span {
+        float: left;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        width: 33%;
+        font-size: 1.3em;
+        text-shadow: 0px 1px lightgray;
+    }
+    .colorbox1,
+    .colorbox2{
+        background-color: #FE574D;
+        width: 20px;
+        height: 20px;
+        border: 1px solid black;
+    }
+    .colorbox3{
+        background-color: #FBDF24;
+        width: 20px;
+        height: 20px;
+        border: 1px solid black;
+    }
+    .colorbox4{
+        background-color: #03FC7A;
+        width: 20px;
+        height: 20px;
+        border: 1px solid black;
+    }
+    .pickview, .taskblock {
+        padding-left: 30%;
+        border-bottom: 2px solid black;
+        height: 100px;
+        overflow: hidden;
+    }
+    #taskline {
+        display: flex;
+        flex-wrap: wrap;
+        float: left;
+    }
+    #taskline div:nth-of-type(2) {
+        padding-left: 50px;
+    }
+    p {
+        font-weight: 700;
+    }
+    a {
+        text-decoration: none;
+        color: #6F4AF1;
+    }
+    md-toolbar{
+        text-align: center;
+        border-bottom: 1px solid lightgray;
+    }
+</style>
+    
+<head>
+    <title>Day View | Stacks Time Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    
+      <script type="text/javascript">    
+    /**
+     * You must include the dependency on 'ngMaterial' 
+     */
+    angular.module('BlankApp', ['ngMaterial']);
+  </script>
+</head>
+
+    <body ng-app="BlankApp" ng-cloak>
+        <md-toolbar class="demo-toolbar md-primary" text-align="center"><h3 class="ng-binding">Tasks</h3></md-toolbar>
+        
+        <div class="pickview">
+            <span>Day</span>
+            <span><a href="fiveday_view.html">5-Day</a></span>
+            <span><a href="month_view.html">Month</a></span>
+        </div>
+        
+        <div class="taskblock">
+            <p>8:30 PM</p>
+            <div id="taskline">
+                <div class="colorbox1"></div>
+                <div>Walk Fido</div>
+            </div>
+        </div>
+        
+        <div class="taskblock">
+            <p>9:00 PM</p>
+            <div id="taskline">
+                <div class="colorbox2"></div>
+                <div>Buy Fluffy Bunnies</div>
+            </div>
+        </div>
+        
+        <div class="taskblock">
+            <p>10:00 PM</p>
+            <div id="taskline">
+                <div class="colorbox3"></div>
+                <div>Vote for Bernie Sanders</div>
+        
+            </div>
+        </div>
+        
+        <div class="taskblock">
+            <p>2:00 PM</p>
+            <div id="taskline">
+                <div class="colorbox4"></div>
+                <div>Rehearse CS256 Slideshow</div>
+            </div>
+        </div>
+        
+        <!--add circular task button -->
+    </body>
+</html>

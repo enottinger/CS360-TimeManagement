@@ -1,0 +1,156 @@
+<!--CS 256
+Rachel Stone
+APP: MONTH VIEW OF TASKS-->
+
+<html>
+    <style>
+        span {
+            float: left;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 33%;
+            font-size: 1.3em;
+            text-shadow: 0px 1px lightgray;
+        }
+        .pickview {
+            height: 100px;
+            overflow: hidden;
+        }
+        p {
+            font-weight: 700;
+        }
+        a {
+            text-decoration: none;
+            color: #6F4AF1;
+        }
+        md-toolbar{
+            text-align: center;
+            border-bottom: 1px solid lightgray;
+        }
+        table {
+            width: 100%;
+            text-align: center;
+        }
+        table, tr, td {
+            border: 2px solid darkgray;
+            border-collapse: collapse;
+        }
+        th {
+            background-color: #6F4AF1;
+            color: ghostwhite;
+        }
+        td {
+            height: 75px;
+            width: 13%;
+        }
+        .task1 {
+            background-color: #FE574D;
+            border: 1px solid gray;
+            color: white;
+        }
+        .task2 {
+            background-color: #FBDF24;
+            border: 1px solid gray;
+            color: white;
+        }
+        .task3 {
+            background-color: #03FC7A;
+            border: 1px solid gray;
+            color: white;
+        }
+    </style>
+    
+    <head>
+        <title>Five-Day View | Stacks Time Management</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- Angular Material style sheet -->
+      <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+        <!-- Angular Material requires Angular.js Libraries -->
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <!-- Angular Material Library -->
+      <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+          <script type="text/javascript">    
+        /**
+         * You must include the dependency on 'ngMaterial' 
+         */
+        angular.module('BlankApp', ['ngMaterial']);
+      </script>
+    </head>
+
+    <body ng-app="BlankApp" ng-cloak>
+        <md-toolbar class="demo-toolbar md-primary" text-align="center"><h3 class="ng-binding">Tasks</h3></md-toolbar>
+        
+        <div class="pickview">
+            <span><a href="day_view.html">Day</a></span>
+            <span>5-Day</a></span>
+            <span><a href="month_view.html">Month</a></span>
+        </div>
+    
+        <table>
+            <tr>
+                <th></th>
+                <th>M</th>
+                <th>T</th>
+                <th>W</th>
+                <th>TH</th>
+                <th>F</th>
+            </tr>
+            <tr>
+                <td>9 AM</td>
+                <td><div class="task1">Buy Fluffy Bunnies</div></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>10 AM</td>
+                <td><div class="task2">Vote for Bernie Sanders</div></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>11 AM</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>12 PM</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>1 PM</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2 PM</td>
+                <td><div class="task3">Rehearse CS256 Slideshow</div></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    
+    
+    </body>
+</html>
+

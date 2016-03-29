@@ -1,0 +1,133 @@
+<!--CS 256
+Rachel Stone
+APP: 5-DAY VIEW OF TASKS-->
+
+<html>
+    <style>
+    span {
+        float: left;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        width: 33%;
+        font-size: 1.3em;
+        text-shadow: 0px 1px lightgray;
+    }
+    .pickview {
+        height: 100px;
+        overflow: hidden;
+    }
+    p {
+        font-weight: 700;
+    }
+    a {
+        text-decoration: none;
+        color: #6F4AF1;
+    }
+    md-toolbar{
+        text-align: center;
+        border-bottom: 1px solid lightgray;
+    }
+    .month {
+        border-bottom: 2px solid black;
+        border-top: 2px solid black;
+        border-collapse: collapse;
+        text-align: center;
+        padding: 25px 15px;
+        font-size: 1.7em;
+    }
+    .month:nth-of-type(2) {
+        background-color: #FE574D;
+    }
+    .month:nth-of-type(3) {
+        background-color: #FBDF24;
+    }
+    table {
+        padding: 20px; 
+        margin-left:auto; 
+        margin-right:auto;
+    }
+    table tr td:nth-of-type(2) {
+        padding-left: 15px;
+    }
+    </style>
+    
+    <head>
+
+        <title>Month View | Stacks Time Management</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- Angular Material style sheet -->
+      <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+        <!-- Angular Material requires Angular.js Libraries -->
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <!-- Angular Material Library -->
+      <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+          <script type="text/javascript">    
+        /**
+         * You must include the dependency on 'ngMaterial' 
+         */
+        angular.module('BlankApp', ['ngMaterial']);
+      </script>
+    </head>
+
+    <body ng-app="BlankApp" ng-cloak>
+        <md-toolbar class="demo-toolbar md-primary" text-align="center"><h3 class="ng-binding">Tasks</h3></md-toolbar>
+        
+        <div class="pickview">
+            <span><a href="day_view.html">Day</a></span>
+            <span><a href="fiveday_view.html">5-Day</a></span>
+            <span>Month</span>
+        </div>
+        
+        <div class="month">April</div>
+        
+        <table>
+            <tr>
+                <td>April 4:</td><td>Walk Fido</td>
+            </tr>
+            <tr>
+                <td>April 4:</td><td>Buy Fluffy Bunnies</td>
+            </tr>
+            <tr>
+                <td>April 4:</td><td>Vote for Bernie Sanders</td>
+            </tr>
+            <tr>
+                <td>April 4:</td><td>Rehearse CS256 Slideshow</td>
+            </tr>
+            <tr>
+                <td>April 10:</td><td>Polish Honors Thesis</td>
+            </tr>
+            <tr>
+                <td>April 17:</td><td>Pack to Move Out!!</td>
+            </tr>
+        </table>
+        
+        <div class="month">May</div>
+        
+        <table>
+            <tr>
+                <td>May 3:</td><td>Paperwork for Internship</td>
+            </tr>
+            <tr>
+                <td>May 4:</td><td>Internship</td>
+            </tr>
+            <tr>
+                <td>May 5-7:</td><td>Trip to New York</td>
+            </tr>
+            <tr>
+                <td>May 8:</td><td>Talk in Church</td>
+            </tr>
+            <tr>
+                <td>May 9:</td><td>Internship</td>
+            </tr>
+            <tr>
+                <td>May 10:</td><td>Family Reunion</td>
+            </tr>
+        </table>
+        
+    </body>
+</html>
