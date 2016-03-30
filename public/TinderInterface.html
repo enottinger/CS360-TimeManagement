@@ -1,6 +1,145 @@
 <html lang="en" >
-<head></head>
-<body>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+  <style>
+	md-toolbar {
+		text-align: center;
+	}
+	md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+		background-color: rgb(102, 97, 236);
+	}
+	
+	a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab {
+		background-color: rgb(102, 97, 236);
+		color: rgb(231, 225, 247);
+	}
+
+      
+      .tasks
+      {
+
+          position: relative;
+      }
+      
+      .tasks .task-card-one
+      {
+          top: 150;
+          left: 100;
+          z-index: 4;
+          position: absolute;
+      }
+      
+      .tasks .task-card-two
+      {
+          top: 170;
+          left: 120;
+          z-index: 3;
+          position: absolute;
+      }
+      .tasks .task-card-three
+      {
+          top: 145;
+          left: 125;
+          z-index: 2;
+          position: absolute;
+      }
+      
+      .tasks .task-card-four
+      {
+          top: 130;
+          left: 80;
+          z-index: 1;
+          position: absolute;
+      }
+      
+      .md-fab /*action button*/
+      {
+          top: 470;
+          left: 250;
+    
+      }
+      
+      
+  </style>
+</head>
+<body ng-app="BlankApp" ng-cloak>
+  <!--
+    Your HTML content here
+  -->
+	<md-toolbar class="demo-toolbar md-primary" layout-align="center">
+          <h3 class="ng-binding">My Stack</h3>
+    </md-toolbar>
+
+
+    
+<div class="tasks" layout-align="center">
+  
+<div class="task-card-one">
+<md-card>
+    <md-card-content>
+    <h2>Task 1</h2>
+    <p>Do your math</p>
+    </md-card-content>
+    <md-card-footer>
+   due TODAY
+    </md-card-footer>
+</md-card>
+</div>
+    
+<div class="task-card-two">
+<md-card>
+    <md-card-content>
+    <h2>Task 2</h2>
+    <p>Do your reading</p>
+    </md-card-content>
+    <md-card-footer>
+   due TODAY
+    </md-card-footer>
+</md-card>
+</div>
+    
+    <div class="task-card-three">
+<md-card>
+    <md-card-content>
+    <h2>Task 3</h2>
+    <p>Get a drink</p>
+    </md-card-content>
+    <md-card-footer>
+   due TODAY
+    </md-card-footer>
+</md-card>
+</div>
+    
+    <div class="task-card-four">
+<md-card>
+    <md-card-content>
+    <h2>Task 4</h2>
+    <p>Do something</p>
+    </md-card-content>
+    <md-card-footer>
+   due TODAY
+    </md-card-footer>
+</md-card>
+</div>
+        
+</div>
+    
+    
+<!--<md-button class="md-raised"> Raised Button </md-button>-->
+
+<md-button class="md-fab">
+            <h2>+</h2>
+</md-button>
+       
+     
+
+
+ 
+    
+    
+    
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
@@ -17,13 +156,6 @@
      */
     angular.module('BlankApp', ['ngMaterial']);
   </script>
-  
-  
-  
-  
-  
-  
-  
   
 </body>
 </html>
