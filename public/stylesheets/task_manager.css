@@ -1,0 +1,20 @@
+#submit span {
+	width: inherit;
+}
+#large_icon md-icon {
+	height: 50px;
+	width: 50px;
+}
+md-toolbar {
+	text-align: center;
+}
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+	background-color: rgb(102, 97, 236);
+	color: white;
+}
+
+a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab {
+	background-color: rgb(102, 97, 236);
+	/*color: rgb(231, 225, 247);*/
+	color: white;
+}
