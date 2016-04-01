@@ -31,7 +31,7 @@ module.exports = function(passport){
 
 /* GET login page. */
 router.get('/', isLoggedin, function(req, res){
-    res.sendfile('views/info.html');
+    res.sendfile('public/home.html');
 });
 
 /* Handle Login POST */
@@ -108,6 +108,7 @@ router.get('/task/:task', function(req, res) {
 });
 
 router.put('/task/:task/completed', function(req, res, next) {
+    console.log("in completed");
     req.task.completed(function(err, task){
        if(err) {return next(err); }
        res.json(task);
@@ -130,6 +131,20 @@ router.put('/task/:task/addTime', function(req, res, next) {
 
 router.put('/task/:task/setPriority', function(req, res, next) {
     req.task.completed(req.body, function(err, task){
+       if(err) {return next(err); }
+       res.json(task);
+    });
+});
+
+router.put('/task/:task/active', function(req, res, next) {
+    req.task.setActive(function(err, task){
+       if(err) {return next(err); }
+       res.json(task);
+    });
+});
+
+router.put('/task/:task/inactive', function(req, res, next) {
+    req.task.setInactive(function(err, task){
        if(err) {return next(err); }
        res.json(task);
     });

@@ -1,13 +1,87 @@
-<!DOCTYPE html>
-<html>
+<html lang="en" >
 <head>
-<title>Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+	<script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
+	<script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.0-rc1/angular-material.js"></script>
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	<script src="javascripts/app2.js"></script>
+  <style>
+	md-toolbar {
+		text-align: center;
+	}
+	md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+		background-color: rgb(102, 97, 236);
+		color: white;
+	}
+	
+	a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab {
+		background-color: rgb(102, 97, 236);
+		/*color: rgb(231, 225, 247);*/
+		color: white;
+	}
+	.dialogdemoBasicUsage #popupContainer {
+		position: relative; 
+	}
+	.dialogdemoBasicUsage .footer {
+		width: 100%;
+		text-align: center;
+		margin-left: 20px; 
+	}
+	.dialogdemoBasicUsage .footer, .dialogdemoBasicUsage .footer > code {
+		font-size: 0.8em;
+		margin-top: 50px; 
+	}
+	.dialogdemoBasicUsage button {
+		width: 200px; 
+	}
+	.dialogdemoBasicUsage div#status {
+	  color: #c60008; 
+	 }
+  </style>
 </head>
-<body>
-<h1>Registration Details<div>
-<form action="/signup" method="POST" >
-<input type="text" name="username" placeholder="Username" required autofocus >
-<input type="password" name="password" placeholder="Password" required >
-<button type="submit">Register</button>
-</body>
+<body ng-controller="AppCtrl" class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="" ng-app="MyApp">
+  <!--
+    Your HTML content here
+	
+	
+	 
+	 
+	
+  -->
+	<md-toolbar class="demo-toolbar md-primary" layout-align="center">
+          <h3 class="ng-binding">SignUp</h3>
+    </md-toolbar>
+	<form action="/signup" method="POST">
+	<div class="dialog-demo-content" layout="column" layout-align="center">
+		<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">
+			<label for="tb_username">Username:</label>
+			<input ng-model="User.username" class="ng-pristine ng-valid md-input ng-touched" name="username" placeholder="Username" id="tb_username" aria-invalid="false"><div class="md-errors-spacer"></div>
+		</md-input-container>
+		<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+			<label for="tb_password">Password:</label>
+			<input ng-model="User.password" class="ng-pristine ng-valid md-input ng-touched" type="password" name="password" placeholder="Password" id="tb_password" aria-invalid="false"><div class="md-errors-spacer"></div>
+		</md-input-container>
+	</div>
+	<div class="dialog-demo-content" layout="row" layout-wrap="" layout-margin="" layout-align="center">
+		<md-button class="md-raised md-primary" type="submit">
+			SignUp
+		</md-button>
+		<a href="/login" style="margin: 0px"><md-button class="md-raised md-primary" style="height:52px">
+			Login
+		</md-button>
+		</a>
+	</div>	
+	</form>
+	
+	</body>
 </html>
