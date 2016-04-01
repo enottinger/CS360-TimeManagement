@@ -19,3 +19,11 @@ a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-rai
 	/*color: rgb(231, 225, 247);*/
 	color: white;
 }
+
+md-dialog {
+	min-width: 260px;
+}
+
+.moment-picker .moment-picker-container {
+	border: 1px solid #C2C2C2;
+}

@@ -17,6 +17,9 @@
       <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
 	  <script src="javascripts/app2.js"></script>
+	  <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
+	  <script src="http://cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.js"></script>
+	  <link href="http://cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.css" rel="stylesheet">
 	  
 	</head>
 
@@ -28,7 +31,7 @@
 			</md-button>	
 			</a>
 			<h3 class="ng-binding">Tasks</h3>
-		</md-toolbar>
+		</md-toolbar>		
 		<!--Junior - use the code below in place of the toolbar for the pages with back buttons
 		<md-toolbar class="demo-toolbar md-primary" text-align="center" layout="row" layout-align="center" >
 			<a href="{{myLink}}">
@@ -40,7 +43,7 @@
 		</md-toolbar>-->
     
 		<script type="text/ng-template" id="dialog1.tmpl.html">
-		<md-dialog aria-label="Add New Task"  ng-cloak>
+		<md-dialog style="min-width: 260px" aria-label="Add New Task"  ng-cloak>
 		  <form>
 			<md-toolbar>
 			  <div class="md-toolbar-tools" style="background-color: rgb(105, 239, 131); font-weight: bold">
@@ -59,10 +62,17 @@
 					<label for="tb_title">Title*:</label>
 					<input ng-model="titleContent" class="ng-pristine ng-valid md-input ng-touched" id="tb_title" aria-invalid="false"><div class="md-errors-spacer"></div>
 				</md-input-container>
-				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
-					<label for="tb_DueDate">Due Date*:</label>
-					<input ng-model="dateContent" class="ng-pristine ng-valid md-input ng-touched"id="tb_DueDate" aria-invalid="false"><div class="md-errors-spacer"></div>
-				</md-input-container>
+				<!--<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+					<label for="tb_DueDate">Due Date*:</label>-->
+					<!--<input ng-model="dateContent" class="ng-pristine ng-valid md-input ng-touched"id="tb_DueDate" aria-invalid="false"><div class="md-errors-spacer"></div>-->
+					<!--<md-datepicker ng-model="dateContent" id="tb_DueDate" md-placeholder="Due Date*"></md-datepicker>-->
+					 
+				<!--</md-input-container>-->
+				<div class="lead" moment-picker="dateContent">    
+					<md-icon md-svg-src="clock.svg" aria-label="Add Task"></md-icon>&nbsp;
+					<span style="color: gray">{{ dateContent ||  "Date*" }}</span>
+      
+				</div>
 				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
 					<label for="tb_description">Description:</label>
 					<input ng-model="Task.description" class="ng-pristine ng-valid md-input ng-touched" id="tb_description" aria-invalid="false"><div class="md-errors-spacer"></div>

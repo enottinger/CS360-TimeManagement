@@ -6,7 +6,7 @@
     $scope.test = 'Hello world!';
   }
 ]);*/
-angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngCookies'])
+angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngCookies', 'moment-picker'])
 
 .controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies) {
     $scope.status = '  ';
