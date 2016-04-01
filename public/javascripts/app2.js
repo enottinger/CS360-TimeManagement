@@ -6,10 +6,22 @@
     $scope.test = 'Hello world!';
   }
 ]);*/
-angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngCookies', 'moment-picker'])
 
-.controller('AppCtrl', function($scope, $mdDialog, $mdMedia) {
+.controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies) {
     $scope.status = '  ';
+	
+	angular.element(document).ready(function () {
+		//$cookies.put('last_page', 'fiveday_view.html');
+		$scope.myLink = $cookies.get('prev_page');
+		
+		$cookies.put('prev_page', window.location);
+		
+		 var prev_page = $cookies.get('prev_page');
+		 console.log(prev_page);
+		// Setting a cookie
+		
+    });
 
     $scope.showAdvanced = function(ev) {
 		var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
