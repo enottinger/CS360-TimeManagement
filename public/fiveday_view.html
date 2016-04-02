@@ -4,7 +4,7 @@ APP: MONTH VIEW OF TASKS-->
 
 <html>
     <style>
-        span {
+        .linked {
             float: left;
             display: flex;
             flex-wrap: wrap;
@@ -14,8 +14,8 @@ APP: MONTH VIEW OF TASKS-->
             text-shadow: 0px 1px lightgray;
         }
         .pickview {
-            height: 100px;
-            overflow: hidden;
+             padding-top: 20px;
+             height: 50px;
         }
         p {
             font-weight: 700;
@@ -26,7 +26,6 @@ APP: MONTH VIEW OF TASKS-->
         }
         md-toolbar{
             text-align: center;
-            border-bottom: 1px solid lightgray;
         }
         table {
             width: 100%;
@@ -95,11 +94,11 @@ APP: MONTH VIEW OF TASKS-->
 		</md-toolbar>	
         
         <div class="pickview">
-            <span><a href="day_view.html">Day</a></span>
-            <span>5-Day</a></span>
-            <span><a href="month_view.html">Month</a></span>
+            <span class="linked"><a href="day_view.html">Day</a></span>
+            <span class="linked">5-Day</a></span>
+            <span class="linked"><a href="month_view.html">Month</a></span>
         </div>
-    
+    <div class="scroller" > 
         <table>
             <tr>
                 <th></th>
@@ -158,12 +157,7 @@ APP: MONTH VIEW OF TASKS-->
                 <td></td>
             </tr>
         </table>
-    
-    <md-button id="large_icon" class="md-icon-button md-button md-ink-ripple" type="button" ng-transclude="" ng-click="showAdvanced($event)" 
-	style="position: absolute;top: 83%;left: 75%;height: 50px;padding: 0px;width: 50px;background-color: white;box-shadow: 0px 5px 5px 2px #C3C3C3;">
-		<md-icon md-svg-src="circle.svg" aria-label="Add Task"></md-icon>
-    </md-button>
-    
+    </div>
     <!--NEW TASK POP UP-->
     <script type="text/ng-template" id="dialog1.tmpl.html">
 		<md-dialog style="min-width: 260px" aria-label="Add New Task"  ng-cloak>
@@ -217,5 +211,10 @@ APP: MONTH VIEW OF TASKS-->
 		</script>
     
     </body>
+            
+         <md-button id="large_icon" class="md-icon-button md-button md-ink-ripple" type="button" ng-transclude="" ng-click="showAdvanced($event)" 
+            	style="position: absolute;top: 83%;left: 75%;height: 50px;padding: 0px;width: 50px;background-color: white;box-shadow: 0px 5px 5px 2px #C3C3C3;">
+		          <md-icon md-svg-src="circle.svg" aria-label="Add Task"></md-icon>
+        </md-button>
 </html>
 
