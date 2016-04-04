@@ -14,12 +14,20 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 	angular.element(document).ready(function () {
 		//$cookies.put('last_page', 'fiveday_view.html');
 		$scope.myLink = $cookies.get('prev_page');
+    var str = String(window.location);
+    var url_ending = str.substring(str.length - 9)
+   
+		console.log(url_ending);
+    if (url_ending != 'menu.html' && url_ending != 'port.html' && url_ending != 'tats.html')
+    {
+       // Setting a cookie
+  		 $cookies.put('prev_page', window.location);
 		
-		$cookies.put('prev_page', window.location);
+		   var prev_page = $cookies.get('prev_page');
+		   console.log(prev_page);
+    }
+
 		
-		 var prev_page = $cookies.get('prev_page');
-		 console.log(prev_page);
-		// Setting a cookie
 		
     });
 
@@ -71,6 +79,7 @@ function DialogController($scope, $mdDialog, $http) {
 		});
 		$scope.titleContent = '';
 		$scope.dateContent = '';
+    $scope.hide;
 	};
 		$scope.create = function(task) {
 	  return $http.post('/addTask', task).success(function(data){
