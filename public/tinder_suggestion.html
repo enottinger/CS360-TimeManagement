@@ -1,7 +1,26 @@
 <html lang="en" >
 <head>
+    
+    
+    
+    <!--
+          
+          COLOR SCHEME
+          
+          #ff2d55 - pink
+          #ff3b30 - red 
+          #4cd946 - green
+          #34aadc - alt blue
+          #007aff - dark blue
+          #5ac8fa - light blue
+          #ffcc00 - yellow
+          #5856d6 - purple
+          #ff9500 - orange
+          
+          -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Angular Material style sheet -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
       <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
 	  <link rel="stylesheet" href="stylesheets/task_manager.css">
         <!-- Angular Material requires Angular.js Libraries -->
@@ -23,6 +42,8 @@
       .tasks
       {
           position: relative;
+          font-family: 'Montserrat', sans-serif;
+          text-align: center;
 		 
       }
       
@@ -74,13 +95,29 @@
 	  
 	  md-card {
 		    box-shadow: 0 5px 5px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
-			border: 1px solid gray;
+			border: 1px solid white;
 	  }
 	  
-	  md-card md-card-content {
+	  md-card md-card-content /*card main part*/
+      {
 			height: 60%;
+          background-color: #5ac8fa;
+          color: white;
 	  }
       
+      md-card md-card-footer /*card footer*/
+      {
+          background-color: #5ac8fa;
+          color: white;
+      }
+
+      .ng-binding /*the font for the toolbar*/
+      {
+          font-family: 'Montserrat', sans-serif;
+          color: white;
+      }
+
+  
       
   </style>
 </head>
@@ -88,14 +125,16 @@
   <!--
     Your HTML content here
   -->
-	   <md-toolbar class="demo-toolbar md-primary" text-align="center" layout="row" layout-align="center" >
+   
+	   <md-toolbar class="demo-toolbar md-primary" text-align="center" layout="row" layout-align="center" style= "background-color:#007aff";>
 			<a href="menu.html">
-			<md-button id="large_icon" class="md-icon-button" ng-click="" style="height: 50px; width: 50px; border-radius: 0px; position: absolute; left: 0px">
+			<md-button id="large_icon" class="md-icon-button" ng-click="" style="height: 50px; width: 50px; border-radius: 0px; position: absolute; left: 0px" >
 				<md-icon md-svg-src="img/icons/ic_menu_24px.svg" aria-label="Close dialog"></md-icon>			
 			</md-button>	
 			</a>
-			<h3 class="ng-binding">Tasks</h3>
-		</md-toolbar>	
+			<h3 class="ng-binding">stacks.</h3>
+		</md-toolbar>
+
 
 
     
@@ -103,48 +142,48 @@
   
 <div class="task-card-one">
 <md-card>
-    <md-card-content>
-    <h2>Task 1</h2>
-    <p>Do your math</p>
+    <md-card-content class="one">
+    <h2>one.</h2>
+    <p>CS 236 - Project 5</p>
     </md-card-content>
-    <md-card-footer>
-   due TODAY
+    <md-card-footer class="one">
+   it's due this friday.
     </md-card-footer>
 </md-card>
 </div>
     
 <div class="task-card-two">
 <md-card>
-    <md-card-content>
-    <h2>Task 2</h2>
-    <p>Do your reading</p>
+    <md-card-content class="two">
+    <h2>two.</h2>
+    <p>English 321 - Reading</p>
     </md-card-content>
-    <md-card-footer>
-   due TODAY
+    <md-card-footer class="two">
+   it's time to read.
     </md-card-footer>
 </md-card>
 </div>
     
     <div class="task-card-three">
 <md-card>
-    <md-card-content>
-    <h2>Task 3</h2>
-    <p>Get a drink</p>
+     <md-card-content class="three">
+    <h2>three.</h2>
+    <p>Go on my run</p>
     </md-card-content>
-    <md-card-footer>
-   due TODAY
+    <md-card-footer class="three">
+   exercise is nice.
     </md-card-footer>
 </md-card>
 </div>
     
     <div class="task-card-four">
 <md-card>
-    <md-card-content>
-    <h2>Task 4</h2>
-    <p>Do something</p>
+    <md-card-content class="four">
+    <h2>four.</h2>
+    <p>Calculus 2 HW 10</p>
     </md-card-content>
-    <md-card-footer>
-   due TODAY
+    <md-card-footer class="four">
+   math is fun, sometimes.
     </md-card-footer>
 </md-card>
 </div>
