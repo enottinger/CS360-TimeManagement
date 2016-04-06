@@ -9,13 +9,13 @@ md-toolbar {
 	text-align: center;
 }
 md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
-	background-color: rgb(102, 97, 236);
+	background-color: #007aff;
 	color: white;
 	box-shadow: 0px 5px 5px #BDBABA;
 }
 
 a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab {
-	background-color: rgb(102, 97, 236);
+	background-color: #007aff;
 	/*color: rgb(231, 225, 247);*/
 	color: white;
 }
@@ -30,5 +30,6 @@ md-dialog {
 
 .scroller {
   height: 75%; 
-  overflow: scroll
+  overflow: scroll;
+  color: black;
 }

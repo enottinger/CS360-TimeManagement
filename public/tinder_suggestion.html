@@ -1,0 +1,282 @@
+<html lang="en" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- Angular Material style sheet -->
+      <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+	  <link rel="stylesheet" href="stylesheets/task_manager.css">
+        <!-- Angular Material requires Angular.js Libraries -->
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+	  <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
+	  <script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.0-rc1/angular-material.js"></script>
+      <!-- Angular Material Library -->
+      <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
+	  <script src="javascripts/app2.js"></script>
+	  <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
+	  <script src="http://cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.js"></script>
+	  <!--<script src="https://code.angularjs.org/1.4.8/angular-touch.js"</script>-->
+	  <link href="http://cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.css" rel="stylesheet">
+  <style>
+	   body {
+			background-color: lightgrey;	   
+	   }
+      
+      .tasks
+      {
+          position: relative;
+		  font-family: 'Montserrat', sans-serif;
+          text-align: center;
+		 
+      }
+      
+      .tasks .task-card-one
+      {
+          top: 20%;
+          z-index: 4;
+          position: absolute;
+		  width: 90%;
+		  left: 6%;
+		  height: 80%;
+      }
+      
+      .tasks .task-card-two
+      {
+          top: 15%;
+          z-index: 3;
+          position: absolute;
+		   width: 90%;
+		  left: 4%;
+		  height: 80%;
+      }
+      .tasks .task-card-three
+      {
+          top: 10%;
+          z-index: 2;
+          position: absolute;
+		   width: 90%;
+		  left: 7%;
+		  height: 80%;
+      }
+      
+      .tasks .task-card-four
+      {
+          top: 5%;
+          z-index: 1;
+          position: absolute;
+		   width: 90%;
+		  left: 5%;
+		  height: 80%;
+      }
+      
+      .md-fab /*action button*/
+      {
+          top: 470;
+          left: 250;
+    
+      }
+	  
+	  md-card {
+		    box-shadow: -10px 10px 10px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+			border: 1px solid white;
+	  }
+	  
+	  md-card md-card-content {
+			height: 60%;
+			background-color: #5ac8fa;
+            color: white;
+	  }
+	  
+	  md-card md-card-footer /*card footer*/
+      {
+          background-color: #5ac8fa;
+          color: white;
+      }
+      .ng-binding /*the font for the toolbar*/
+      {
+          font-family: 'Montserrat', sans-serif;
+      }
+      
+  </style>
+</head>
+<body ng-controller="AppCtrl" class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="" ng-app="MyApp"  style="padding: 0px">
+  <!--
+    Your HTML content here
+  -->
+	   <md-toolbar class="demo-toolbar md-primary" text-align="center" layout="row" layout-align="center"  style= "background-color:#007aff">
+			<a href="menu.html">
+			<md-button id="large_icon" class="md-icon-button" ng-click="" style="height: 50px; width: 50px; border-radius: 0px; position: absolute; left: 0px">
+				<md-icon md-svg-src="img/icons/ic_menu_24px.svg" aria-label="Close dialog"></md-icon>			
+			</md-button>	
+			</a>
+			<span flex></span>
+			<h3 class="ng-binding">Stacks</h3>
+			<span flex></span>
+			<md-button class="md-icon-button md-button md-ink-ripple" type="button" ng-transclude="" ng-click="showHelp($event)" 
+				style="margin-right: 15px; margin-top: 15px;">
+				
+				<md-icon md-svg-src="help.svg" aria-label="Close dialog" ></md-icon>
+			</md-button>
+			
+		</md-toolbar>	
+
+
+    
+<div class="tasks" layout-align="center" style="height: 80%">
+
+<div id="doing_task" class="task-card-one" style="display: none">
+<md-card md-swipe-left="pauseTask()" md-swipe-right="completeTask()">
+    <md-card-content class="one">
+    <h2>Task One</h2>
+        <p>Right now you are working on:</p>
+    <p style="font-size: 130%; font-weight: bold;">Walk Fido</p>
+        <p>Keep at it!</p>
+        <p>You'll hit that due date for sure!</p>
+    </md-card-content>
+    <md-card-footer class="one">
+   It's due today at 8:30 AM.
+    </md-card-footer>
+</md-card>
+</div>
+  
+<div id="task1" class="task-card-one">
+<md-card md-swipe-right="startTask($event)" md-swipe-left="showConfirm($event)" md-swipe-up="toggleTasks($event)" md-swipe-down="goToSched($event)">
+    <md-card-content>
+    <h2 id="task1_head">Task One</h2>
+    <p id="task1_p">Walk Fido</p>
+    </md-card-content>
+    <md-card-footer>
+   <p id="task1_duedate">It's due today at 8:30 AM.</p>
+   <md-button id="large_icon" class="md-icon-button md-button md-ink-ripple" type="button" ng-transclude="" ng-click="showAdvanced($event)" 
+	style="position: absolute;top: 83%;left: 75%;height: 50px;padding: 0px;width: 50px;background-color: white;box-shadow: -10px 10px 10px 2px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);">
+		<md-icon md-svg-src="circle.svg" aria-label="Add Task"></md-icon>
+	</md-button>
+        
+    </md-card-footer>
+</md-card>
+</div>
+    
+<div id="task2" class="task-card-two">
+<md-card >
+    <md-card-content>
+    <h2>Task 2</h2>
+    <p>Do your reading</p>
+    </md-card-content>
+    <md-card-footer>
+   due TODAY
+    </md-card-footer>
+</md-card>
+</div>
+    
+    <div  id="task3" class="task-card-three">
+<md-card>
+    <md-card-content>
+    <h2>Task 3</h2>
+    <p>Get a drink</p>
+    </md-card-content>
+    <md-card-footer>
+   due TODAY
+    </md-card-footer>
+</md-card>
+</div>
+    
+    <div id="task4" class="task-card-four">
+<md-card>
+    <md-card-content>
+    <h2>Task 4</h2>
+    <p>Do something</p>
+    </md-card-content>
+    <md-card-footer>
+   due TODAY
+    </md-card-footer>
+</md-card>
+</div>
+
+
+</div>
+    
+    
+	<script type="text/ng-template" id="dialog1.tmpl.html">
+		<md-dialog style="min-width: 260px" aria-label="Add New Task"  ng-cloak>
+		  <form>
+			<md-toolbar>
+			  <div class="md-toolbar-tools" style="background-color: rgb(105, 239, 131); font-weight: bold">
+				<span flex></span>
+				<h2>Add New Task</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+				  <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+				</md-button>
+			  </div>
+			</md-toolbar>
+			<div style="padding: 20px 10px 10px 10px;">
+			<md-dialog-content style="color: black">
+				<p>*Required Field</p>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">
+					<label for="tb_title">Title*:</label>
+					<input ng-model="titleContent" class="ng-pristine ng-valid md-input ng-touched" id="tb_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+				<!--<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+					<label for="tb_DueDate">Due Date*:</label>-->
+					<!--<input ng-model="dateContent" class="ng-pristine ng-valid md-input ng-touched"id="tb_DueDate" aria-invalid="false"><div class="md-errors-spacer"></div>-->
+					<!--<md-datepicker ng-model="dateContent" id="tb_DueDate" md-placeholder="Due Date*"></md-datepicker>-->
+					 
+				<!--</md-input-container>-->
+				<div class="lead" moment-picker="dateContent">    
+					<md-icon md-svg-src="clock.svg" aria-label="Add Task"></md-icon>&nbsp;
+					<span style="color: gray">{{ dateContent ||  "Date*" }}</span>
+      
+				</div>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+					<label for="tb_description">Description:</label>
+					<input ng-model="Task.description" class="ng-pristine ng-valid md-input ng-touched" id="tb_description" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+					<label for="tb_category">Category:</label>
+					<input ng-model="Task.category" class="ng-pristine ng-valid md-input ng-touched" id="tb_category" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+			</md-dialog-content>
+			</div>
+			<md-dialog-actions layout="row" layout-align="center" style="padding-left: 0px; width: inherit">
+				<md-button id="submit" class="md-raised md-primary" style="background-color: rgb(105, 239, 131);" ng-click="addTask($event)">
+					Submit
+				</md-button>
+			</md-dialog-actions>
+			
+		  </form>
+		</md-dialog>
+		</script>
+		
+		<script type="text/ng-template" id="helpDialog.tmpl.html">
+		<md-dialog style="min-width: 260px" aria-label="Add New Task"  ng-cloak>
+			<md-toolbar>
+			  <div class="md-toolbar-tools" style="background-color: rgb(105, 239, 131); font-weight: bold">
+				<span flex></span>
+				<h2>Instructions</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+				  <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+				</md-button>
+			  </div>
+			</md-toolbar>
+			<div style="padding: 20px 10px 10px 10px;">
+			<md-dialog-content style="color: black">
+				<h2>To...</h2>
+				<p><b>Start task:</b> swipe right.</p>
+				<p><b>Pause task:</b> swipe left (after starting task)</p>
+				<p><b>Complete task:</b> swipe right (after starting task)</p>
+				<p><b>See next task:</b> swipe up</p>				
+				<p><b>Delete task:</b> swipe left</p>
+				<p><b>See schedule:</b> swipe down</p>
+			</md-dialog-content>
+			</div>
+		</md-dialog>
+		</script>
+    
+    </body>   
+    
+  
+</body>
+</html>
