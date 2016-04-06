@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Menu Page</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <!-- Angular Material style sheet -->
+     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+   <link rel="stylesheet" href="stylesheets/task_manager.css">
+       <!-- Angular Material requires Angular.js Libraries -->
+     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+   <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
+   <script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.0-rc1/angular-material.js"></script>
+     <!-- Angular Material Library -->
+     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
+   <script src="javascripts/app2.js"></script>
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
+   <script src="http://cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.js"></script>
+   <link href="http://cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.css" rel="stylesheet">
+
+    <style>
+      md-toolbar{
+        text-align: center;
+        border-bottom: 1px solid lightgray;
+      }
+
+      body{
+        background-color: lightgray;
+      }
+      #div01{
+        margin:auto;
+        text-align: center;
+      }
+
+    </style>
+  </head>
+  <body ng-controller="AppCtrl" class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="" ng-app="MyApp" style="padding: 0px">
+    <md-toolbar class="demo-toolbar md-primary" text-align="center" layout="row" layout-align="center" >
+    <a href="{{myLink}}">
+    <md-button id="large_icon" class="md-icon-button" ng-click="cancel()" style="height: 50px; width: 50px; border-radius: 0px; position: absolute; left: 0px">
+      <md-icon md-svg-src="img/icons/ic_arrow_back_24px.svg" aria-label="Close dialog"></md-icon>
+    </md-button>
+    </a>
+    <h3 class="ng-binding">MENU</h3>
+  </md-toolbar>
+
+    <div id="div01">
+      <a href = "/setting"><button class="md-raised md-primary md-button md-ink-ripple" type="button" ng-transclude="" text-align="center" style=".a
+    width: 65%; margin-top:25px;
+"><span class="ng-scope">Settings</span><div class="md-ripple-container"></div></button></a>
+    </div>
+    <div id="div01">
+      <a href = "/stats"><button class="md-raised md-primary md-button md-ink-ripple" type="button" ng-transclude="" text-align="center" style="
+    width: 65%; margin-top:25px;
+"><span class="ng-scope">Stats</span><div class="md-ripple-container"></div></button></a>
+    </div>
+    <div id="div01">
+      <a href = "/import"><button class="md-raised md-primary md-button md-ink-ripple" type="button" ng-transclude="" text-align="center" style="
+    width: 65%; margin-top:25px;
+"><span class="ng-scope">Import</span><div class="md-ripple-container"></div></button></a>
+    </div>
+    <div id="div01">
+      <a href = "/signout"><button class="md-raised md-primary md-button md-ink-ripple" type="button" ng-transclude="" text-align="center" style="
+    width: 65%; margin-top:25px;
+"><span class="ng-scope">Sign Out</span><div class="md-ripple-container"></div></button></a>
+    </div>
+
+
+    </body>
+</html>

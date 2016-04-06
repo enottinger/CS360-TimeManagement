@@ -1,0 +1,121 @@
+<html lang="en" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+  <style>
+	md-toolbar {
+		text-align: center;
+	}
+	md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+		background-color: rgb(102, 97, 236);
+	}
+	
+	a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab {
+		background-color: rgb(102, 97, 236);
+		color: rgb(231, 225, 247);
+	}
+
+      
+      .tasks
+      {
+
+          position: relative;
+      }
+      
+      .tasks .task-card-one
+      {
+          top: 150;
+          left: 100;
+          z-index: 4;
+          position: absolute;
+      }
+      
+      .tasks .task-card-two
+      {
+          top: 170;
+          left: 120;
+          z-index: 3;
+          position: absolute;
+      }
+      .tasks .task-card-three
+      {
+          top: 145;
+          left: 125;
+          z-index: 2;
+          position: absolute;
+      }
+      
+      .tasks .task-card-four
+      {
+          top: 130;
+          left: 80;
+          z-index: 1;
+          position: absolute;
+      }
+      
+      .md-fab /*action button*/
+      {
+          top: 470;
+          left: 250;
+    
+      }
+      
+      
+  </style>
+ <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript">    
+    /**
+     * You must include the dependency on 'ngMaterial' 
+     */
+    angular.module('tasklist', ['ngMaterial']);
+  </script>
+    <script src="javascripts/app.js"></script>  
+
+</head>
+<body ng-app="tasklist" ng-controller="MainCtrl" ng-cloak>
+  <!--
+    Your HTML content here
+  -->
+	<md-toolbar class="demo-toolbar md-primary" layout-align="center">
+          <h3 class="ng-binding">My Stack</h3>
+    </md-toolbar>
+
+
+    
+<div class="tasks" layout-align="center" ng-init="getTasks()">
+<div ng-repeat="task in tasks" >  
+<div ng-style="getStyle(tasks.length, $index)">
+<md-card style="width: 200, background-color = 'white'">
+    <div style="backgroundColor = 'white'">
+    <md-card-content>
+    <h2>{{task.title}}</h2>
+    <p>{{task.description}}</p>
+    </md-card-content>
+    <md-card-footer>
+    Due: {{task.dueDate}}
+    </md-card-footer>
+    </div>
+</md-card>
+</div>
+</div>
+        
+</div>
+    
+<!--<md-button class="md-raised"> Raised Button </md-button>-->
+
+<md-button class="md-fab">
+            <h2>+</h2>
+</md-button>
+        
+</body>
+</html>

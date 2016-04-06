@@ -3,14 +3,14 @@ var mongoose = require('mongoose');
 var TaskSchema = new mongoose.Schema({
   title: {type: String},
   category: {type: String, default: "N/A"},
-  dueDate: String,
+  dueDate: Date,
   description: {type: String, default: "No Description"},
   timeSpent: {type: Number, default: 0},
   priority: {type: String, default: "Low"},
   complete: {type: Boolean, default: false},
   active: {type: Boolean, default: false},
   startDate: {type: Date, default: null},
-
+  deleted: {type: Boolean, default: false}
 });
 
 TaskSchema.methods.completed = function (cb) {
@@ -32,6 +32,10 @@ TaskSchema.methods.uncompleted = function (cb) {
   this.save(cb);
 };
 
+TaskSchema.methods.delete = function (cb) {
+  this.deleted = true;
+  this.save(cb);
+};
 TaskSchema.methods.setPriority = function (newPriority, cb) {
   this.priority = newPriority;
   this.save(cb);

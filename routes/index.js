@@ -8,7 +8,7 @@ router.get('/user', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-	res.sendFile('login.html', { root: 'public' });
+	res.sendFile('views/login.html', { root: 'public' });
 });
 
 module.exports = router;
@@ -31,7 +31,7 @@ module.exports = function(passport){
 
 /* GET login page. */
 router.get('/', isLoggedin, function(req, res){
-    res.sendfile('public/home.html');
+    res.sendfile('views/day_view.html');
 });
 
 /* Handle Login POST */
@@ -43,6 +43,46 @@ router.post('/login', passport.authenticate('login', {
 /* GET Registration Page */
 router.get('/signup', function(req, res){
     res.sendfile('views/signup.html');
+});
+
+router.get('/login', function(req, res){
+    res.sendfile('views/login.html');
+});
+
+router.get('/TinderInterface.html', isLoggedin, function(req, res){
+    res.sendfile('views/TinderInterface.html');
+});
+
+router.get('/stats.html',isLoggedin, function(req, res){
+    res.sendfile('views/stats.html');
+});
+
+router.get('/month_view.html', isLoggedin, function(req, res){
+    res.sendfile('views/month_view.html');
+});
+
+router.get('/import.html', isLoggedin, function(req, res){
+    res.sendfile('views/import.html');
+});
+
+router.get('/home.html', isLoggedin, function(req, res){
+    res.sendfile('views/home.html');
+});
+
+router.get('/fiveday_view.html', isLoggedin, function(req, res){
+    res.sendfile('views/fiveday_view.html');
+});
+
+router.get('/day_view.html', isLoggedin, function(req, res){
+    res.sendfile('views/day_view.html');
+});
+
+router.get('/dailytasks.html', isLoggedin, function(req, res){
+    res.sendfile('views/dailytasks.html');
+});
+
+router.get('/menu.html', isLoggedin, function(req, res){
+    res.sendfile('views/menu.html');
 });
 
 /* Handle Registration POST */
@@ -122,6 +162,13 @@ router.put('/task/:task/uncompleted', function(req, res, next) {
     });
 });
 
+router.put('/task/:task/delete', function(req, res, next) {
+    req.task.delete(function(err, task){
+       if(err) {return next(err); }
+       res.json(task);
+    });
+});
+
 router.put('/task/:task/addTime', function(req, res, next) {
     req.task.completed(req.body, function(err, task){
        if(err) {return next(err); }
@@ -171,10 +218,59 @@ router.get('/getTasks', isLoggedin, function(req, res, next) {
         User.findById(req.session.passport.user,function (err, user) { 
 	   if(err) {return next(err); }
 	   var tasks = [];
-	   Task.find({'_id': {'$in' : user.tasklist}}, function(err, items) {
+	   Task.find({'_id': {'$in' : user.tasklist}, "complete": false, "deleted": false}, function(err, items) {
                     console.log("useritems ",user.tasklist); // <--Gets me array with the ids
                     console.log("items ", items); //<--Empty
                     res.send(items);//Empty
+           });
+	   //console.log(tasks);
+	   //res.json(tasks);
+ 	});   
+});
+
+router.get('/getDeletedTasks', isLoggedin, function(req, res, next) {
+        User.findById(req.session.passport.user,function (err, user) { 
+	   if(err) {return next(err); }
+	   var tasks = [];
+	   Task.find({'_id': {'$in' : user.tasklist}, completed: false, deleted: true}, function(err, items) {
+                    console.log("useritems ",user.tasklist); // <--Gets me array with the ids
+                    console.log("items ", items); //<--Empty
+                    res.send(items);//Empty
+           });
+	   //console.log(tasks);
+	   //res.json(tasks);
+ 	});   
+});
+
+router.get('/getCompletedTasks', isLoggedin, function(req, res, next) {
+        User.findById(req.session.passport.user,function (err, user) { 
+	   if(err) {return next(err); }
+	   var tasks = [];
+	   Task.find({'_id': {'$in' : user.tasklist}, completed: false, deleted: false}, function(err, items) {
+                    console.log("useritems ",user.tasklist); // <--Gets me array with the ids
+                    console.log("items ", items); //<--Empty
+                    res.send(items);//Empty
+           });
+	   //console.log(tasks);
+	   //res.json(tasks);
+ 	});   
+});
+
+router.get('/getDaysTasks', isLoggedin, function(req, res, next) {
+        User.findById(req.session.passport.user,function (err, user) { 
+	   if(err) {return next(err); }
+	   Task.find({'_id': {'$in' : user.tasklist}, "complete": false, "deleted": false}, function(err, items) {
+                    console.log("useritems ",user.tasklist);
+                    console.log("items ", items);
+		    var tasks = [];
+                    for(var i = 0; i < items.length; i++){
+			
+			console.log("Dates: " + items[i].dueDate.toDateString() + "+++" + (new Date).toDateString());
+	  	        if(items[i].dueDate.toDateString() == (new Date).toDateString()){
+	 	           tasks.push(items[i]);
+                        }
+		    }
+                    res.send(tasks);
            });
 	   //console.log(tasks);
 	   //res.json(tasks);

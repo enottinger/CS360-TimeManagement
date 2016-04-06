@@ -1,0 +1,309 @@
+<html lang="en" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+  <style>
+	md-toolbar {
+		text-align: center;
+       
+	}
+	md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+		background-color: #007aff;
+        font-family: "avenir";
+	}
+	
+	a.md-button.md-default-theme.md-primary.md-raised, a.md-button.md-primary.md-raised, a.md-button.md-default-theme.md-primary.md-fab, a.md-button.md-primary.md-fab, .md-button.md-default-theme.md-primary.md-raised, .md-button.md-primary.md-raised, .md-button.md-default-theme.md-primary.md-fab, .md-button.md-primary.md-fab {
+		background-color: #007aff;
+		color: rgb(231, 225, 247);
+         padding: 0px;
+	}
+      .action-button{
+          
+        z-index: 20;
+        line-height: 56px;
+        min-width: 0;
+        width: 56px;
+        height: 56px;
+        vertical-align: middle;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+        border-radius: 50%;
+        background-clip: padding-box;
+        overflow: hidden;
+        background-color: #ff2d55;
+        position: absolute;
+        top: 86%;
+          left: 76%;
+       
+      }
+
+      .ng-binding{
+          background-color: #007aff;
+          font-family: "avenir";
+          font-size: 150%;
+          color: white;
+         /* top: 10px;
+          text-align: center;
+         padding: 1px;
+          box-shadow: 0px 3px 3px darkgrey;*/
+      }
+  
+      md-card md-card-footer
+      {
+          background-color: #5ac8fa;
+          color: white;
+      }
+      md-card md-card-content 
+      {
+          background-color: #5ac8fa;
+          color: white;
+          padding: 10px;
+          
+         /* 
+          
+          COLOR SCHEME
+          
+          #ff2d55 - pink
+          #ff3b30 - red 
+          #4cd946 - green
+          #34aadc - alt blue
+          #007aff - dark blue
+          #5ac8fa - light blue
+          #ffcc00 - yellow
+          #5856d6 - purple
+          #ff9500 - orange
+          
+          */
+      }
+      .tasks
+      {
+          text-align: center;
+          position: relative;
+          font-family: "avenir";
+      }
+      
+      .one
+      {
+           background-color: #5ac8fa;
+          z-index: 3;
+          top: 2%;
+        
+      }
+      .two
+      {
+            background-color: #5ac8fa;
+          z-index: 2;
+          
+      }
+      
+      .three
+      {
+          background-color: #5ac8fa;
+          
+          z-index: 1;
+          
+       
+      }
+      .four
+      {
+          background-color: #5ac8fa;
+          z-index: 0;
+          
+       
+      }
+      
+      .md-fab /*action button*/
+      {
+          
+          left: 80%;
+          position: relative;
+    
+      }
+      
+      
+  </style>
+</head>
+    
+    <!--<div class= "toolbar">
+    <h1 class="ng-binding">stack.</h1>
+    </div> -->
+    
+    
+    
+    
+
+<md-toolbar class="demo-toolbar md-primary" text-align="center" layout="row" layout-align="center" >
+    <a href="menu.html">
+			<md-button id="large_icon" class="md-icon-button" ng-click="" style="height: 50px; width: 50px; border-radius: 0px; position: absolute; left: 0px">
+				<md-icon md-svg-src="img/icons/ic_menu_24px.svg" aria-label="Close dialog"></md-icon>			
+			</md-button>	
+    </a>
+			<h3 class="ng-binding">stacks.</h3>
+</md-toolbar>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+<body ng-app="BlankApp" ng-cloak style=>
+  <!--
+    Your HTML content here
+  -->
+	         
+ 
+
+
+    
+<div class="tasks" layout-align="center">
+  
+<div>
+<md-card>
+    <md-card-content class="one">
+    <h2>one.</h2>
+    <p>CS 236 - Project 5</p>
+    </md-card-content>
+    <md-card-footer class="one">
+   it's due this friday.
+    </md-card-footer>
+</md-card>
+</div>
+    
+<div>
+<md-card>
+    <md-card-content class="two">
+    <h2>two.</h2>
+    <p>English 321 - Reading</p>
+    </md-card-content>
+    <md-card-footer class="two">
+   it's time to read.
+    </md-card-footer>
+</md-card>
+</div>
+    
+    <div>
+<md-card>
+    <md-card-content class="three">
+    <h2>three.</h2>
+    <p>Go on my run</p>
+    </md-card-content>
+    <md-card-footer class="three">
+   exercise is nice.
+    </md-card-footer>
+</md-card>
+</div>
+    
+    <div>
+<md-card>
+    <md-card-content class="four">
+    <h2>four.</h2>
+    <p>Calculus 2 HW 10</p>
+    </md-card-content>
+    <md-card-footer class="four">
+   math is fun, sometimes.
+    </md-card-footer>
+</md-card>
+</div>
+        
+</div>
+    
+    
+<!--<md-button class="md-raised"> Raised Button </md-button>-->
+
+<md-button class="action-button">
+       
+</md-button>
+       
+     
+
+
+ 
+    
+    
+    
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+  
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript">    
+    /**
+     * You must include the dependency on 'ngMaterial' 
+     */
+    angular.module('BlankApp', ['ngMaterial']);
+  </script>
+    
+    
+    <script type="text/ng-template" id="dialog1.tmpl.html">
+		<md-dialog aria-label="Add New Task"  ng-cloak>
+		  <form>
+			<md-toolbar>
+			  <div class="md-toolbar-tools" style="background-color: rgb(105, 239, 131); font-weight: bold">
+				<span flex></span>
+				<h2>Add New Task</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+				  <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+				</md-button>
+			  </div>
+			</md-toolbar>
+			<div style="padding: 20px 10px 10px 10px;">
+			<md-dialog-content>
+				<p>*Required Field</p>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">
+					<label for="tb_title">Title*:</label>
+					<input ng-model="titleContent" class="ng-pristine ng-valid md-input ng-touched" id="tb_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+					<label for="tb_DueDate">Due Date*:</label>
+					<input ng-model="dateContent" class="ng-pristine ng-valid md-input ng-touched"id="tb_DueDate" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+					<label for="tb_description">Description:</label>
+					<input ng-model="Task.description" class="ng-pristine ng-valid md-input ng-touched" id="tb_description" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+				<md-input-container class="md-block flex-gt-xs md-input-has-value" flex-gt-xs="">	
+					<label for="tb_category">Category:</label>
+					<input ng-model="Task.category" class="ng-pristine ng-valid md-input ng-touched" id="tb_category" aria-invalid="false"><div class="md-errors-spacer"></div>
+				</md-input-container>
+			</md-dialog-content>
+			</div>
+			<md-dialog-actions layout="row" layout-align="center" style="padding-left: 0px; width: inherit">
+				<md-button id="submit" class="md-raised md-primary" style="background-color: rgb(105, 239, 131);" ng-click="addTask($event)">
+					Submit
+				</md-button>
+			</md-dialog-actions>
+			
+		  </form>
+		</md-dialog>
+		</script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+</body>
+    
+    
+    <md-button id="large_icon" class="md-icon-button md-button md-ink-ripple" type="button" ng-transclude="" ng-click="showAdvanced($event)" 
+	style="position: absolute;top: 83%;left: 75%;height: 50px;padding: 0px;width: 50px;background-color: white;box-shadow: 0px 5px 5px 2px #C3C3C3;">
+		<md-icon md-svg-src="circle.svg" aria-label="Add Task"></md-icon>
+    </md-button>
+    
+    
+</html>
