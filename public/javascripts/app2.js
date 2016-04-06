@@ -10,7 +10,7 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 
 .controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies) {
     $scope.status = '  ';
-	
+	  $scope.task1_showing = true;
 	
 	angular.element(document).ready(function () {
 		//$cookies.put('last_page', 'fiveday_view.html');
