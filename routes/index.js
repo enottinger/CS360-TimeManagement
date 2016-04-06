@@ -31,7 +31,7 @@ module.exports = function(passport){
 
 /* GET login page. */
 router.get('/', isLoggedin, function(req, res){
-    res.sendfile('views/day_view.html');
+    res.sendfile('views/tinder_suggestion.html');
 });
 
 /* Handle Login POST */
@@ -49,8 +49,8 @@ router.get('/login', function(req, res){
     res.sendfile('views/login.html');
 });
 
-router.get('/TinderInterface.html', isLoggedin, function(req, res){
-    res.sendfile('views/TinderInterface.html');
+router.get('/tinder_suggestion.html', isLoggedin, function(req, res){
+    res.sendfile('views/tinder_suggestion.html');
 });
 
 router.get('/stats.html',isLoggedin, function(req, res){
