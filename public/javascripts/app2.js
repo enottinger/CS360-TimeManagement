@@ -11,6 +11,12 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 .controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies) {
     $scope.status = '  ';
 	  $scope.task1_showing = true;
+    $scope.tasks = [
+         {title: 'Walk Dog', dueDate: '3/25/2016', category: 'home', description:     'Bring doggy bags'},
+         {title: 'Due Homework', dueDate: '3/25/2016', category: 'home', description:                   'Bring doggy bags'},
+         {title: 'Attended meeting', dueDate: '3/25/2016', category: 'home', description: 'Bring doggy bags'},
+         {title: 'visit TAs', dueDate: '3/25/2016', category: 'home', description: 'Bring doggy bags'}
+    ];
 	
 	angular.element(document).ready(function () {
 		//$cookies.put('last_page', 'fiveday_view.html');
@@ -33,6 +39,12 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
        // console.log('Made it here');
        // document.getElementById('task1').style.color = 'red';   
    // }
+   
+	  $scope.getTasks = function() {
+		    return $http.get('/getDueTasks').success(function(data){
+			     angular.copy(data, $scope.tasks);
+		  });
+	  };
 	
 	$scope.startTask = function() {
 		document.getElementById('task1').style.display = 'none'; 
@@ -177,23 +189,10 @@ function DialogController($scope, $mdDialog, $http) {
 	  };
      
 		$scope.create = function(task) {
-	  return $http.post('/addTask', task).success(function(data){
-	     $scope.tasks.push(data);
-	  });
+	      return $http.post('/addTask', task).success(function(data){
+        $scope.tasks.push(data);
+	      });
     };
-
-	$scope.getTasks = function() {
-		return $http.get('/userTasks').success(function(data){
-			 angular.copy(data, $scope.tasks);
-		});
-	};
-	$scope.tasks = [
-         {title: 'Walk Dog', dueDate: '3/25/2016'},
-         {title: 'Due Homework', dueDate: '3/25/2016'},
-         {title: 'Attended meeting', dueDate: '3/25/2016'},
-         {title: 'visit TAs', dueDate: '3/25/2016'},
-         {title: 'Code', dueDate: '3/25/2016'}
-    ];
 }
 
 
