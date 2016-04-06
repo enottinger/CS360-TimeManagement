@@ -9,6 +9,7 @@
 angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngCookies', 'moment-picker'])
 
 .controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies) {
+    
     $scope.status = '  ';
 	  $scope.task1_showing = true;
     $scope.tasks = [
@@ -143,6 +144,9 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 		$mdDialog.show({
 		  controller: DialogController,
 		  templateUrl: 'dialog1.tmpl.html',
+      locals: {
+          tasks: $scope.tasks
+      },
 		  parent: angular.element(document.body),
 		  targetEvent: ev,
 		  clickOutsideToClose:true,
@@ -160,40 +164,44 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 		  $scope.customFullscreen = (wantsFullScreen === false);
 		});
 	};
+ 
+   DialogController.$inject = ['$scope','$mdDialog', '$http', 'tasks'];
+   function DialogController($scope, $mdDialog, $http, tasks) {
+      $scope.hide = function() {
+      $mdDialog.hide();
+    };
 
-});
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
 
-function DialogController($scope, $mdDialog, $http) {
-  $scope.hide = function() {
-    $mdDialog.hide();
-  };
-
-  $scope.cancel = function() {
-    $mdDialog.cancel();
-  };
-
-  $scope.answer = function(answer) {
-    $mdDialog.hide(answer);
-  };
-	$scope.addTask = function(ev) {
-		if($scope.titleContent === ''){return;}
-		if($scope.dateContent === ''){return;}
-		console.log("In addTask with "+$scope.titleContent+ " " + $scope.dateContent);
-		$scope.create({
-			title: $scope.titleContent,
-			dueDate: $scope.dateContent,
-		});
-		$scope.titleContent = '';
-		$scope.dateContent = '';
-    $scope.hide();
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+	  $scope.addTask = function(ev) {
+      console.log(tasks);
+	  	if($scope.titleContent === ''){return;}
+		  if($scope.dateContent === ''){return;}
+		  console.log("In addTask with "+$scope.titleContent+ " " + $scope.dateContent);
+		  $scope.create({
+			  title: $scope.titleContent,
+			  dueDate: $scope.dateContent,
+	  	});
+	  	$scope.titleContent = '';
+		  $scope.dateContent = '';
+      $scope.hide();
 	  };
      
 		$scope.create = function(task) {
 	      return $http.post('/addTask', task).success(function(data){
-        $scope.tasks.push(data);
+         tasks.push(data);
 	      });
     };
-}
+  }
+
+});
+
+
 
 
 /**
