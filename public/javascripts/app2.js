@@ -119,6 +119,9 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 		$mdDialog.show({
 		  controller: DialogController,
 		  templateUrl: 'helpDialog.tmpl.html',
+      locals: {
+          tasks: $scope.tasks
+      },
 		  parent: angular.element(document.body),
 		  targetEvent: ev,
 		  clickOutsideToClose:true,
