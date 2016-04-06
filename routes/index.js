@@ -256,7 +256,7 @@ router.get('/getCompletedTasks', isLoggedin, function(req, res, next) {
  	});   
 });
 
-router.get('/getDaysTasks', isLoggedin, function(req, res, next) {
+router.get('/getTodayTasks', isLoggedin, function(req, res, next) {
         User.findById(req.session.passport.user,function (err, user) { 
 	   if(err) {return next(err); }
 	   Task.find({'_id': {'$in' : user.tasklist}, "complete": false, "deleted": false}, function(err, items) {
@@ -275,6 +275,27 @@ router.get('/getDaysTasks', isLoggedin, function(req, res, next) {
 	   //console.log(tasks);
 	   //res.json(tasks);
  	});   
+});
+
+router.get('/getDueTasks', isLoggedin, function(req, res, next) {
+        User.findById(req.session.passport.user,function (err, user) { 
+	   if(err) {return next(err); }
+	   Task.find({'_id': {'$in' : user.tasklist}, "complete": false, "deleted": false}, function(err, items) {
+                    console.log("useritems ",user.tasklist);
+                    console.log("items ", items);
+		    var tasks = [];
+                    for(var i = 0; i < items.length; i++){
+			
+			//console.log("Dates: " + items[i].dueDate.toDateString() + "+++" + (new Date).toDateString());
+	  	        if(items[i].dueDate.toDateString() == (new Date).toDateString() || items[i].dueDate <= (new Date)){
+	 	           tasks.push(items[i]);
+                        }
+		    }
+                    res.send(tasks);
+           });
+	   //console.log(tasks);
+	   //res.json(tasks);
+ 	});  
 });
 
 return router;
