@@ -98,64 +98,45 @@ APP: MONTH VIEW OF TASKS-->
             <span class="linked">5-Day</a></span>
             <span class="linked"><a href="month_view.html">Month</a></span>
         </div>
-    <div class="scroller" > 
+    <div class="scroller" ng-init = "getFiveDayTasks()"> 
         <table>
             <tr>
                 <th></th>
-                <th>M</th>
-                <th>T</th>
-                <th>W</th>
-                <th>TH</th>
-                <th>F</th>
+                <th>Today</th>
+                <th>Tomorrow</th>
+                <th>{{getDayOffset(2)}}</th>
+                <th>{{getDayOffset(3)}}</th>
+                <th>{{getDayOffset(4)}}</th>
             </tr>
-            <tr>
-                <td>9 AM</td>
-                <td> <a href="tinder_suggestion.html"><div class="task1">Buy Fluffy Bunnies</div></a></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>10 AM</td>
-                <td> <a href="tinder_suggestion.html"><div class="task2">Vote for Bernie Sanders</div></a></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>11 AM</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>12 PM</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>1 PM</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>2 PM</td>
-                <td> <a href="tinder_suggestion.html"><div class="task3">Rehearse CS256 Slideshow</div></a></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+	    	<tr ng-repeat = "hour in hours" ng-style = "getDayStyle(hour)">
+			<td>{{getHourOffset(hour) | date : 'h a'}}</td>
+    		<td>
+			<div ng-repeat = "task in getDayHourTasks(0,hour)" class="task1">
+				{{task.title}}
+			</div>	
+		</td>
+    		<td>
+			<div ng-repeat = "task in getDayHourTasks(1,hour)" class="task1">
+				{{task.title}}
+			</div>		
+		</td>
+    		<td>
+			<div ng-repeat = "task in getDayHourTasks(2,hour)" class="task1">
+				{{task.title}}
+			</div>		
+		</td>
+    		<td>
+			<div ng-repeat = "task in getDayHourTasks(3,hour)" class="task1">
+				{{task.title}}
+			</div>	
+		</td>
+    		<td>
+			<div ng-repeat = "task in getDayHourTasks(4,hour)" class="task1">
+				{{task.title}}
+			</div>		
+		</td>
+	
+		</tr>
         </table>
     </div>
     <!--NEW TASK POP UP-->

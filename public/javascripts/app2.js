@@ -1,4 +1,3 @@
-
 /*angular.module('comment', [])
 .controller('MainCtrl', [
   '$scope',
@@ -6,13 +5,16 @@
     $scope.test = 'Hello world!';
   }
 ]);*/
-angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngCookies', 'moment-picker', 'ngAnimate'])
+angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngCookies', 'moment-picker'])
 
-.controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies, $timeout, $http) {
+.controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies, $http) {
     
     $scope.status = '  ';
+	  $scope.task1_showing = true;
     $scope.tasks = [];
-    
+	
+    $scope.hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+
     $scope.lastTaskIndex = 3;
 	
 	angular.element(document).ready(function () {
@@ -47,6 +49,41 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
        // document.getElementById('task1').style.color = 'red';   
    // }
    
+	$scope.getHourOffset = function(offset) {	
+	   	var now = new Date();
+		now.setHours(now.getHours()+offset);
+		return now;
+	};	
+   
+	$scope.getDayOffset = function(offset) {
+		var now = new Date();
+		now.setDate(now.getDate()+offset);
+		var daysofweek = ["Sun","Mon","Tu","Wed","Th","Fri","Sat"];
+		return daysofweek[now.getDay()];
+	};
+
+	$scope.getMonthOffset = function(offset) {
+		var now = new Date();
+		now.setMonth(now.getMonth()+offset);
+		var monthsofyear = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+		return monthsofyear[now.getMonth()];
+	};
+
+	$scope.getDayStyle = function(offset) {
+		var future = new Date();
+		var now = new Date(future);
+		future.setHours(future.getHours()+offset);
+		if(future.toDateString() !== now.toDateString())
+			return {backgroundColor: 'lightgrey'}
+		else
+			return {backgroundColor: 'white'}
+	};
+
+
+	$scope.getLocaleTime = function(dateObj) {
+		return dateObj.getLocaleTime();
+	}
+   
 	  $scope.getTasks = function() {
 		    return $http.get('/getTasks').success(function(data){
 			     angular.copy(data, $scope.tasks);
@@ -80,6 +117,85 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
          }
      
      }
+
+	$scope.incrementor = 0;
+
+	$scope.getDayHourTasks = function(dayoffset, houroffset) {
+		if(dayoffset == 0 && houroffset == 0)
+			$scope.incrementor = 0;
+		var tasksubset = [];
+		var future = new Date();
+		future.setDate(future.getDate()+dayoffset);
+		future.setHours(future.getHours()+houroffset);
+		for(var i = $scope.incrementor; i < $scope.tasks.length; i++){
+			var dueDate = new Date($scope.tasks[i].dueDate);
+			if(dueDate.getHours() == future.getHours()
+				&& dueDate.getDate() == future.getDate()){
+				tasksubset.push($scope.tasks[i]);
+				$scope.incrementor++;
+			}
+			else if(dueDate.getHours() > future.getHours()
+				|| dueDate.getDate() > future.getDate()){
+				return tasksubset;
+			}
+			else if(dueDate.getHours() < future.getHours()
+				|| dueDate.getDate() < future.getDate()){
+				console.log("ERROR");
+			}
+		}
+		return tasksubset;
+	};
+
+	$scope.incrementor2 = 0;
+
+	$scope.getMonthTasks = function(monthoffset) {
+		if(monthoffset == 0)
+			$scope.incrementor2 = 0;
+		var tasksubset = [];
+		var future = new Date();
+		future.setMonth(future.getMonth()+monthoffset);
+		for(var i = $scope.incrementor2; i < $scope.tasks.length; i++){
+			var dueDate = new Date($scope.tasks[i].dueDate);
+			if(dueDate.getMonth() == future.getMonth()){
+				tasksubset.push($scope.tasks[i]);
+				$scope.incrementor2++;
+			}
+			else if(dueDate.getMonth() > future.getMonth()){
+				return tasksubset;
+			}
+			else if(dueDate.getMonth() < future.getMonth()){
+				console.log("ERROR");
+			}
+		}
+		return tasksubset;
+	};
+
+	$scope.getTodaysTasks = function() {
+	  var now = new Date();
+	  var config = {headers: {
+			"timezone": now.getTimezoneOffset(),
+		}
+	  }
+	  return $http.get('/getTodayTasks', config).success(function(data){
+			     angular.copy(data, $scope.tasks);
+		  });	
+	};	
+
+
+	$scope.getFiveDayTasks = function() {
+		  return $http.get('/getFiveDayTasks').success(function(data){
+			data.sort(function(a,b){return a.dueDate - b.dueDate});     
+			angular.copy(data, $scope.tasks);
+		  });	
+	};
+
+	$scope.getHalfYearTasks = function() {
+		  return $http.get('/getHalfYearTasks').success(function(data){
+			     angular.copy(data, $scope.tasks);
+		  });	
+	};
+
+
      $scope.showCards = function() {
                 
          for (var i = 0; i < $scope.tasks.length; i++)
@@ -109,6 +225,7 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
      
      }
 	
+
 	$scope.startTask = function() {
 		document.getElementById('tasks_container').style.display = 'none'; 
     //    document.getElementById('task1').style.display = 'none';  
@@ -229,9 +346,10 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 	  	if($scope.titleContent === ''){return;}
 		  if($scope.dateContent === ''){return;}
 		  console.log("In addTask with "+$scope.titleContent+ " " + $scope.dateContent);
-		  $scope.create({
+		var date = new Date((new Date($scope.dateContent)).toUTCString());  
+		$scope.create({
 			  title: $scope.titleContent,
-			  dueDate: $scope.dateContent,
+			  dueDate: date,
 	  	});
 	  	$scope.titleContent = '';
 		  $scope.dateContent = '';
@@ -246,6 +364,16 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
   }
 
 });
+    
+
+
+   
+
+
+
+
+
+
 
 
 
@@ -254,3 +382,4 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 Copyright 2016 Google Inc. All Rights Reserved. 
 Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
 **/
+

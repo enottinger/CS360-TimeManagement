@@ -93,53 +93,17 @@ APP: 5-DAY VIEW OF TASKS-->
             <span class="linked"><a href="fiveday_view.html">5-Day</a></span>
             <span class="linked">Month</span>
         </div>
-     <div class="scroller" > 
-        <div class="month">April</div>
+     <div class="scroller" ng-init="getHalfYearTasks()"> 
+	<div ng-repeat = "monthOffset in [0,1,2,3,4,5]">
+        <div class="month">{{getMonthOffset(monthOffset)}}</div>
         
          <a href="tinder_suggestion.html"><table>
-            <tr>
-                <td>April 4:</td><td>Walk Fido</td>
-            </tr>
-            <tr>
-                <td>April 4:</td><td>Buy Fluffy Bunnies</td>
-            </tr>
-            <tr>
-                <td>April 4:</td><td>Vote for Bernie Sanders</td>
-            </tr>
-            <tr>
-                <td>April 4:</td><td>Rehearse CS256 Slideshow</td>
-            </tr>
-            <tr>
-                <td>April 10:</td><td>Polish Honors Thesis</td>
-            </tr>
-            <tr>
-                <td>April 17:</td><td>Pack to Move Out!!</td>
+            <tr ng-repeat>
+
             </tr>
         </table></a>
+        </div>
         
-        <div class="month" style="color: #8B7904">May</div>
-        
-         <a href="tinder_suggestion.html"><table>
-            <tr>
-                <td>May 3:</td><td>Paperwork for Internship</td>
-            </tr>
-            <tr>
-                <td>May 4:</td><td>Internship</td>
-            </tr>
-            <tr>
-                <td>May 5-7:</td><td>Trip to New York</td>
-            </tr>
-            <tr>
-                <td>May 8:</td><td>Talk in Church</td>
-            </tr>
-            <tr>
-                <td>May 9:</td><td>Internship</td>
-            </tr>
-            <tr>
-                <td>May 10:</td><td>Family Reunion</td>
-            </tr>
-        </table></a>
-    </div>
         
         <!--NEW TASK POP UP-->
     <script type="text/ng-template" id="dialog1.tmpl.html">

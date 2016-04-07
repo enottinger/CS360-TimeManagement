@@ -104,11 +104,11 @@ APP: DAY VIEW OF TASKS-->
             <span class="linked"><a href="/fiveday_view">5-Day</a></span>
             <span class="linked"><a href="/month_view">Month</a></span>
         </div>
-        
-    <div class="scroller" ng-init="getDaysTasks">  
-	<div ng-repeat="task in tasks" ng-init="getDaysTasks"> 
+    <div 
+    <div class="scroller" ng-init="getTodaysTasks()">  
+	<div ng-repeat="task in tasks | orderBy: 'dueDate'"> 
         <div class="taskblock">
-            <p>{{task.dueDate.getHours()}}:{{task.dueDate.getMinutes()}}</p>
+            <p>{{task.dueDate| date:'shortTime'}}</p>
             <div id="taskline">
                 <div class="colorbox1"></div>
                 <div>{{task.title}}</div>
