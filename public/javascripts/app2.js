@@ -1,4 +1,5 @@
 
+
 /*angular.module('comment', [])
 .controller('MainCtrl', [
   '$scope',
@@ -8,16 +9,14 @@
 ]);*/
 angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngCookies', 'moment-picker'])
 
-.controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies) {
+.controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies, $http) {
+    
     $scope.status = '  ';
 	  $scope.task1_showing = true;
-    $scope.tasks = [
-         {title: 'Walk Dog', dueDate: '3/25/2016', category: 'home', description:     'Bring doggy bags'},
-         {title: 'Due Homework', dueDate: '3/25/2016', category: 'home', description:                   'Bring doggy bags'},
-         {title: 'Attended meeting', dueDate: '3/25/2016', category: 'home', description: 'Bring doggy bags'},
-         {title: 'visit TAs', dueDate: '3/25/2016', category: 'home', description: 'Bring doggy bags'}
-    ];
+    $scope.tasks = [];
 	
+    $scope.hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+
 	angular.element(document).ready(function () {
 		//$cookies.put('last_page', 'fiveday_view.html');
 		$scope.myLink = $cookies.get('prev_page');
@@ -40,11 +39,80 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
        // document.getElementById('task1').style.color = 'red';   
    // }
    
+	$scope.getHourOffset = function(offset) {	
+	   	var now = new Date();
+		now.setHours(now.getHours()+offset);
+		return now;
+	};	
+   
+	$scope.getDayOffset = function(offset) {
+		var now = new Date();
+		now.setDate(now.getDate()+offset);
+		var daysofweek = ["Sun","Mon","Tu","Wed","Th","Fri","Sat"];
+		return daysofweek[now.getDay()];
+	};
+
+	$scope.getDayStyle = function(offset) {
+		var future = new Date();
+		var now = new Date(future);
+		future.setHours(future.getHours()+offset);
+		if(future.toDateString() !== now.toDateString())
+			return {backgroundColor: 'lightgrey'}
+		else
+			return {backgroundColor: 'white'}
+	};
+
+
+	$scope.getLocaleTime = function(dateObj) {
+		return dateObj.getLocaleTime();
+	}
+   
 	  $scope.getTasks = function() {
 		    return $http.get('/getDueTasks').success(function(data){
 			     angular.copy(data, $scope.tasks);
 		  });
 	  };
+
+	$scope.getDayHourTasks = function(dayoffset, houroffset) {
+		var tasksubset = [];
+		var future = new Date();
+		future.setDate(future.getDate()+dayoffset);
+		future.setHours(future.getHours()+houroffset);
+		for(var i = 0; i < $scope.tasks.length; i++){
+			var dueDate = new Date($scope.tasks[i].dueDate);
+			if(dueDate.getHours() == future.getHours()
+				&& dueDate.getDate() == future.getDate()){
+				tasksubset.push($scope.tasks[i]);
+			}
+		}
+		return tasksubset;
+	};
+
+	$scope.getTodaysTasks = function() {
+	  var now = new Date();
+	  var config = {headers: {
+			"timezone": now.getTimezoneOffset(),
+		}
+	  }
+	  return $http.get('/getTodayTasks', config).success(function(data){
+			     angular.copy(data, $scope.tasks);
+		  });	
+	};	
+
+
+	$scope.getFiveDayTasks = function() {
+		  return $http.get('/getFiveDayTasks').success(function(data){
+			     angular.copy(data, $scope.tasks);
+		  });	
+	};
+
+	$scope.getHalfYearTasks = function() {
+		  return $http.get('/getHalfYearTasks').success(function(data){
+			     angular.copy(data, $scope.tasks);
+		  });	
+	};
+
+
 	
 	$scope.startTask = function() {
 		document.getElementById('task1').style.display = 'none'; 
@@ -118,6 +186,9 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 		$mdDialog.show({
 		  controller: DialogController,
 		  templateUrl: 'helpDialog.tmpl.html',
+      locals: {
+          tasks: $scope.tasks
+      },
 		  parent: angular.element(document.body),
 		  targetEvent: ev,
 		  clickOutsideToClose:true,
@@ -143,6 +214,9 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 		$mdDialog.show({
 		  controller: DialogController,
 		  templateUrl: 'dialog1.tmpl.html',
+      locals: {
+          tasks: $scope.tasks
+      },
 		  parent: angular.element(document.body),
 		  targetEvent: ev,
 		  clickOutsideToClose:true,
@@ -160,40 +234,45 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 		  $scope.customFullscreen = (wantsFullScreen === false);
 		});
 	};
+ 
+   DialogController.$inject = ['$scope','$mdDialog', '$http', 'tasks'];
+   function DialogController($scope, $mdDialog, $http, tasks) {
+      $scope.hide = function() {
+      $mdDialog.hide();
+    };
 
-});
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
 
-function DialogController($scope, $mdDialog, $http) {
-  $scope.hide = function() {
-    $mdDialog.hide();
-  };
-
-  $scope.cancel = function() {
-    $mdDialog.cancel();
-  };
-
-  $scope.answer = function(answer) {
-    $mdDialog.hide(answer);
-  };
-	$scope.addTask = function(ev) {
-		if($scope.titleContent === ''){return;}
-		if($scope.dateContent === ''){return;}
-		console.log("In addTask with "+$scope.titleContent+ " " + $scope.dateContent);
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+	  $scope.addTask = function(ev) {
+      console.log(tasks);
+	  	if($scope.titleContent === ''){return;}
+		  if($scope.dateContent === ''){return;}
+		  console.log("In addTask with "+$scope.titleContent+ " " + $scope.dateContent);
+		var date = new Date((new Date($scope.dateContent)).toUTCString());  
 		$scope.create({
-			title: $scope.titleContent,
-			dueDate: $scope.dateContent,
-		});
-		$scope.titleContent = '';
-		$scope.dateContent = '';
-    $scope.hide();
+			  title: $scope.titleContent,
+			  dueDate: date,
+	  	});
+	  	$scope.titleContent = '';
+		  $scope.dateContent = '';
+      $scope.hide();
 	  };
      
 		$scope.create = function(task) {
 	      return $http.post('/addTask', task).success(function(data){
-        $scope.tasks.push(data);
+         tasks.push(data);
 	      });
     };
-}
+  }
+
+});
+
+
 
 
 /**
