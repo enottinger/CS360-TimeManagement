@@ -32,26 +32,42 @@
 		 
       }
       
-      .tasks .task-card-one
+      .task0
       {
           top: 20%;
           z-index: 4;
           position: absolute;
-		  width: 90%;
-		  left: 6%;
-		  height: 80%;
+		      width: 90%;
+		      left: 6%;
+		      height: 80%;
+        -webkit-transform: translate3d(0,0,0); 
+        transform: translate3d(0,0,0,);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        perspective: 1000;
+        -webkit-transition:all linear 0.5s;
+        transition:all linear 0.5s;
       }
       
-      .tasks .task-card-two
+      .task1
       {
           top: 15%;
           z-index: 3;
           position: absolute;
-		   width: 90%;
-		  left: 4%;
-		  height: 80%;
+		     width: 90%;
+		    left: 4%;
+		    height: 80%;
+            -webkit-transform: translate3d(0,0,0); 
+        transform: translate3d(0,0,0,);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        perspective: 1000;
+        -webkit-transition:all linear 0.5s;
+        transition:all linear 0.5s;
       }
-      .tasks .task-card-three
+      .task2
       {
           top: 10%;
           z-index: 2;
@@ -59,9 +75,17 @@
 		   width: 90%;
 		  left: 7%;
 		  height: 80%;
+        -webkit-transform: translate3d(0,0,0); 
+        transform: translate3d(0,0,0,);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        perspective: 1000;
+        -webkit-transition:all linear 0.5s;
+        transition:all linear 0.5s;
       }
       
-      .tasks .task-card-four
+      .task3
       {
           top: 5%;
           z-index: 1;
@@ -69,6 +93,14 @@
 		   width: 90%;
 		  left: 5%;
 		  height: 80%;
+        -webkit-transform: translate3d(0,0,0); 
+        transform: translate3d(0,0,0,);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        perspective: 1000;
+        -webkit-transition:all linear 0.5s;
+        transition:all linear 0.5s;
       }
       
       .md-fab /*action button*/
@@ -98,8 +130,79 @@
       {
           font-family: 'Montserrat', sans-serif;
       }
+      #slide{
+        position:absolute;
+        width:100%;
+        height:100px;
+        top:90%;
+        background: red;
+      } 
+
+      .task0.ng-hide-add,
+      .task0.ng-hide-remove,
+      .task1.ng-hide-add,
+      .task1.ng-hide-remove,
+      .task2.ng-hide-add,
+      .task2.ng-hide-remove,
+      .task3.ng-hide-add,
+      .task3.ng-hide-remove{
+        display:block!important;
+        -webkit-animation:0.5s slide-up;
+        animation:0.5s slide-up;
+      }
+
+      .task0.ng-hide-remove.ng-hide-remove-active,
+      .task1.ng-hide-remove.ng-hide-remove-active,
+      .task2.ng-hide-remove.ng-hide-remove-active,
+      .task3.ng-hide-remove.ng-hide-remove-active {
+        -webkit-animation:0.5s slide-up;
+        animation:0.5s slide-up;
+      }
+
+      .task0.ng-hide-add.ng-hide-add-active,
+      .task1.ng-hide-add.ng-hide-add-active,
+      .task2.ng-hide-add.ng-hide-add-active,
+      .task3.ng-hide-add.ng-hide-add-active {
+         -webkit-animation:0.5s slide-up;
+        animation:0.5s slide-up;
+      }
+
+      .task0.ng-hide {
+        top:20%;
+        display:block!important;
+      }
+      .task1.ng-hide {
+        top:15%;
+        display:block!important;
+      }
+      .task2.ng-hide {
+        top:10%;
+        display:block!important;
+      }
+      .task3.ng-hide {
+        top:5%;
+        display:block!important;
+      }
+
+      @-webkit-keyframes slide-up
+      {
+        0%   {top:20%;}
+        100%  {top:0;}
+      }
+
+      @keyframes slide-up
+      {
+        0%   {top:20%;}
+        100%  {top:0;}
+      }
       
   </style>
+  <script> 
+      var task1_slide = false;
+      var task2_slide = false;
+      var task3_slide = false;
+      var task4_slide = false;
+  </script>
 </head>
 <body ng-controller="AppCtrl" class="md-padding dialogdemoBasicUsage" id="popupContainer" ng-cloak="" ng-app="MyApp"  style="padding: 0px">
   <!--
@@ -107,7 +210,7 @@
   -->
 	   <md-toolbar class="demo-toolbar md-primary" text-align="center" layout="row" layout-align="center"  style= "background-color:#007aff">
 			<a href="menu.html">
-			<md-button id="large_icon" class="md-icon-button" ng-click="" style="height: 50px; width: 50px; border-radius: 0px; position: absolute; left: 0px">
+			<md-button id="large_icon" class="md-icon-button" ng-click="" style="height: 50px; width: 50px; border-radius: 0px; position: absolute; left: 0px;">
 				<md-icon md-svg-src="img/icons/ic_menu_24px.svg" aria-label="Close dialog"></md-icon>			
 			</md-button>	
 			</a>
@@ -122,11 +225,8 @@
 			
 		</md-toolbar>	
 
-
-    
-<div class="tasks" layout-align="center" style="height: 80%">
-
-<div id="doing_task" class="task-card-one" style="display: none">
+<div class="tasks" id="in_progress" layout-aling="center" style="display: none">
+<div id="doing_task" class="task-card-one" >
 <md-card md-swipe-left="pauseTask()" md-swipe-right="completeTask()">
     <md-card-content class="one">
     <h2>Task One</h2>
@@ -140,61 +240,65 @@
     </md-card-footer>
 </md-card>
 </div>
+</div>
+    
+<div class="tasks" id="tasks_container" layout-align="center" style="height: 80%">
   
-<div id="task1" class="task-card-one">
-<md-card md-swipe-right="startTask($event)" md-swipe-left="showConfirm($event)" md-swipe-up="toggleTasks($event)" md-swipe-down="goToSched($event)">
+<div id="task0" class="task0" ng-show="task1_slide">
+<md-card md-swipe-right="startTask($event)" md-swipe-left="showConfirm($event)" md-swipe-up="task1_slide=!task1_slide; toggleTasks($event)" md-swipe-down="goToSched($event)" >
     <md-card-content>
-    <h2 id="task1_head">Task One</h2>
-    <p id="task1_p">Walk Fido</p>
+    <h2 id="task0_head">Task One</h2>
+    <p id="task0_p">Walk Fido</p>
     </md-card-content>
     <md-card-footer>
-   <p id="task1_duedate">It's due today at 8:30 AM.</p>
-   <md-button id="large_icon" class="md-icon-button md-button md-ink-ripple" type="button" ng-transclude="" ng-click="showAdvanced($event)" 
-	style="position: absolute;top: 83%;left: 75%;height: 50px;padding: 0px;width: 50px;background-color: white;box-shadow: -10px 10px 10px 2px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);">
-		<md-icon md-svg-src="circle.svg" aria-label="Add Task"></md-icon>
-	</md-button>
+      <p id="task0_duedate">It's due today at 8:30 AM.</p>
         
     </md-card-footer>
 </md-card>
 </div>
     
-<div id="task2" class="task-card-two">
-<md-card >
+<div id="task1" class="task1" ng-show="task2_slide">
+<md-card md-swipe-right="startTask($event)" md-swipe-left="showConfirm($event)" md-swipe-up="task2_slide=!task2_slide; toggleTasks($event)" md-swipe-down="goToSched($event)" >
     <md-card-content>
-    <h2>Task 2</h2>
-    <p>Do your reading</p>
+    <h2 id="task1_head">Task 2</h2>
+    <p id="task1_p">Do your reading</p>
     </md-card-content>
     <md-card-footer>
-   due TODAY
+      <p id="task1_duedate">It's due today at 8:30 AM.</p>
     </md-card-footer>
 </md-card>
 </div>
     
-    <div  id="task3" class="task-card-three">
-<md-card>
+    <div  id="task2" class="task2" ng-show="task3_slide">
+<md-card md-swipe-right="startTask($event)" md-swipe-left="showConfirm($event)" md-swipe-up="task3_slide=!task3_slide; toggleTasks($event)" md-swipe-down="goToSched($event)" >
     <md-card-content>
-    <h2>Task 3</h2>
-    <p>Get a drink</p>
+    <h2 id="task2_head">Task 3</h2>
+    <p id="task2_p">Get a drink</p>
     </md-card-content>
     <md-card-footer>
-   due TODAY
+       <p id="task2_duedate">It's due today at 8:30 AM.</p>
     </md-card-footer>
 </md-card>
 </div>
     
-    <div id="task4" class="task-card-four">
-<md-card>
+    <div id="task3" class="task3" ng-show="task4_slide">
+<md-card md-swipe-right="startTask($event)" md-swipe-left="showConfirm($event)" md-swipe-up="task4_slide=!task4_slide; toggleTasks($event)" md-swipe-down="goToSched($event)" >
     <md-card-content>
-    <h2>Task 4</h2>
-    <p>Do something</p>
+    <h2 id="task3_head">Task 4</h2>
+    <p id="task3_p">Do something</p>
     </md-card-content>
     <md-card-footer>
-   due TODAY
+       <p id="task3_duedate">It's due today at 8:30 AM.</p>
     </md-card-footer>
 </md-card>
+
 </div>
 
-
+  <md-button id="large_icon" class="md-icon-button md-button md-ink-ripple" type="button" ng-transclude="" ng-click="showAdvanced($event)" 
+	      style="position: absolute;top: 83%;left: 75%;height: 50px;padding: 0px;width: 50px;background-color: white; z-index: 4;
+        box-shadow: -10px 10px 10px 2px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);">
+	  	<md-icon md-svg-src="circle.svg" aria-label="Add Task"></md-icon>
+	</md-button>
 </div>
     
     
