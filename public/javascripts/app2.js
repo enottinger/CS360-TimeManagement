@@ -6,22 +6,19 @@
     $scope.test = 'Hello world!';
   }
 ]);*/
-angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngCookies', 'moment-picker'])
+angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngCookies', 'moment-picker', 'ngAnimate'])
 
-.controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies) {
+.controller('AppCtrl', function($scope, $mdDialog, $mdMedia, $cookies, $timeout, $http) {
     
     $scope.status = '  ';
-	  $scope.task1_showing = true;
-    $scope.tasks = [
-         {title: 'Walk Dog', dueDate: '3/25/2016', category: 'home', description:     'Bring doggy bags'},
-         {title: 'Due Homework', dueDate: '3/25/2016', category: 'home', description:                   'Bring doggy bags'},
-         {title: 'Attended meeting', dueDate: '3/25/2016', category: 'home', description: 'Bring doggy bags'},
-         {title: 'visit TAs', dueDate: '3/25/2016', category: 'home', description: 'Bring doggy bags'}
-    ];
+    $scope.tasks = [];
+    
+    $scope.lastTaskIndex = 3;
 	
 	angular.element(document).ready(function () {
 		//$cookies.put('last_page', 'fiveday_view.html');
 		$scope.myLink = $cookies.get('prev_page');
+    
 		var str = String(window.location);
 		var url_ending = str.substring(str.length - 9)
    
@@ -34,6 +31,15 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 		   var prev_page = $cookies.get('prev_page');
 		   console.log(prev_page);
 		}
+       //hide the cards unless the user actually has that many tasks
+      
+     
+    if (url_ending == '217:3009/')
+    { 
+      $scope.getTasks();           
+    }
+    
+    
 	});
 	
 	//$scope.test = function() {
@@ -42,54 +48,91 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
    // }
    
 	  $scope.getTasks = function() {
-		    return $http.get('/getDueTasks').success(function(data){
+		    return $http.get('/getTasks').success(function(data){
 			     angular.copy(data, $scope.tasks);
+           $scope.showCardsInit();
 		  });
 	  };
+     
+     $scope.showCardsInit = function() {
+           document.getElementById('task0').style.zIndex = 4;
+           document.getElementById('task1').style.zIndex = 3;
+           document.getElementById('task2').style.zIndex = 2;
+           document.getElementById('task3').style.zIndex = 1;
+          for (var i = 0; i < 4; i++)
+         {
+             //hide the cards unless the user actually has that many tasks
+            document.getElementById('task' + i).style.overflow = 'hidden';
+            document.getElementById('task' + i).style.visibility = 'hidden';
+             
+         }
+         for (var i = 0; i < $scope.tasks.length; i++)
+         {    
+             if (i == 4)
+               break;//we only show four cards at a time
+               
+             document.getElementById('task' + i).style.visibility = 'visible';
+             var current_task = $scope.tasks[i];
+             document.getElementById('task' + i + '_head').innerText = current_task.title; 
+             document.getElementById('task' + i + '_p').innerText = current_task.description;  
+             document.getElementById('task' + i + '_duedate').innerText = 'Due today at ' + current_task.dueDate;  
+             $scope.lastTaskIndex = i;  
+         }
+     
+     }
+     $scope.showCards = function() {
+                
+         for (var i = 0; i < $scope.tasks.length; i++)
+         {    
+             if (i == 4)
+               break;//we only show four cards at a time
+            // var current_task = $scope.tasks[(i + $scope.currentTaskIndex) % $scope.tasks.length];
+    	       var current_card = document.getElementById('task' + i);
+             current_card.style.display = 'inherit';
+             if (current_card.style.zIndex == 4)
+             {
+                 if ($scope.lastTaskIndex == $scope.tasks.length - 1)
+                   $scope.lastTaskIndex = 0;
+                 else
+                   $scope.lastTaskIndex += 1;
+                 current_card.style.zIndex = 1;
+                 var next_task = $scope.tasks[$scope.lastTaskIndex];
+                 document.getElementById('task' + i + '_head').innerText = next_task.title; 
+                 document.getElementById('task' + i + '_p').innerText = next_task.description;  
+                 document.getElementById('task' + i + '_duedate').innerText = 'Due today at ' + next_task.dueDate; 
+             }
+             else
+             {
+                current_card.style.zIndex = parseInt(current_card.style.zIndex) + 1;                 
+             }    
+         }
+     
+     }
 	
 	$scope.startTask = function() {
-		document.getElementById('task1').style.display = 'none'; 
-        document.getElementById('task2').style.display = 'none';  
-	    document.getElementById('task3').style.display = 'none'; 
-		document.getElementById('task4').style.display = 'none'; 
-		document.getElementById('doing_task').style.display = 'inherit'; 
+		document.getElementById('tasks_container').style.display = 'none'; 
+    //    document.getElementById('task1').style.display = 'none';  
+	   // document.getElementById('task2').style.display = 'none'; 
+		//document.getElementById('task3').style.display = 'none'; 
+		document.getElementById('in_progress').style.display = 'inherit'; 
     }
 	
 	$scope.pauseTask = function() {
         //console.log('Made it here');
-		document.getElementById('task1').style.display = 'inherit'; 
-        document.getElementById('task2').style.display = 'inherit';  
-	    document.getElementById('task3').style.display = 'inherit'; 
-		document.getElementById('task4').style.display = 'inherit'; 
-		document.getElementById('doing_task').style.display = 'none'; 
+		document.getElementById('in_progress').style.display = 'none';
+    document.getElementById('tasks_container').style.display = 'inherit';  
     }
 	
 	$scope.completeTask = function(ev) {
 		//change this code to actually complete tasks
         //console.log('Made it here');
-		document.getElementById('task1').style.display = 'inherit'; 
-        document.getElementById('task2').style.display = 'inherit';  
-	    document.getElementById('task3').style.display = 'inherit'; 
-		document.getElementById('task4').style.display = 'inherit'; 
-		document.getElementById('doing_task').style.display = 'none'; 
+		  document.getElementById('in_progress').style.display = 'none'; 
+        document.getElementById('tasks_container').style.display = 'inherit'; 
     }
 	
 	$scope.toggleTasks = function(ev) {
-		if ($scope.task1_showing)
-		{
-			document.getElementById('task1_head').innerText = 'Task Two'; 
-			document.getElementById('task1_p').innerText = 'Do your reading';  
-			document.getElementById('task1_duedate').innerText = 'Due today at 9:00 AM';  
-		}
-		else
-		{
-			document.getElementById('task1_head').innerText = 'Task One'; 
-			document.getElementById('task1_p').innerText = 'Walk Fido';  
-			document.getElementById('task1_duedate').innerText = 'Due today at 8:30 AM';  
-		}
-		
-		$scope.task1_showing = !$scope.task1_showing;
-		
+    $timeout(function(){$scope.showCards();}, 500);
+    	
 	}
 	
 	$scope.goToSched = function(ev) {
