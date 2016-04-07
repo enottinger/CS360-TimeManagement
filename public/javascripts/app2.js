@@ -52,6 +52,13 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 		return daysofweek[now.getDay()];
 	};
 
+	$scope.getMonthOffset = function(offset) {
+		var now = new Date();
+		now.setMonth(now.getMonth()+offset);
+		var monthsofyear = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+		return monthsofyear[now.getMonth()];
+	};
+
 	$scope.getDayStyle = function(offset) {
 		var future = new Date();
 		var now = new Date(future);
@@ -73,16 +80,53 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 		  });
 	  };
 
+	$scope.incrementor = 0;
+
 	$scope.getDayHourTasks = function(dayoffset, houroffset) {
+		if(dayoffset == 0 && houroffset == 0)
+			$scope.incrementor = 0;
 		var tasksubset = [];
 		var future = new Date();
 		future.setDate(future.getDate()+dayoffset);
 		future.setHours(future.getHours()+houroffset);
-		for(var i = 0; i < $scope.tasks.length; i++){
+		for(var i = $scope.incrementor; i < $scope.tasks.length; i++){
 			var dueDate = new Date($scope.tasks[i].dueDate);
 			if(dueDate.getHours() == future.getHours()
 				&& dueDate.getDate() == future.getDate()){
 				tasksubset.push($scope.tasks[i]);
+				$scope.incrementor++;
+			}
+			else if(dueDate.getHours() > future.getHours()
+				|| dueDate.getDate() > future.getDate()){
+				return tasksubset;
+			}
+			else if(dueDate.getHours() < future.getHours()
+				|| dueDate.getDate() < future.getDate()){
+				console.log("ERROR");
+			}
+		}
+		return tasksubset;
+	};
+
+	$scope.incrementor2 = 0;
+
+	$scope.getMonthTasks = function(monthoffset) {
+		if(monthoffset == 0)
+			$scope.incrementor2 = 0;
+		var tasksubset = [];
+		var future = new Date();
+		future.setMonth(future.getMonth()+monthoffset);
+		for(var i = $scope.incrementor2; i < $scope.tasks.length; i++){
+			var dueDate = new Date($scope.tasks[i].dueDate);
+			if(dueDate.getMonth() == future.getMonth()){
+				tasksubset.push($scope.tasks[i]);
+				$scope.incrementor2++;
+			}
+			else if(dueDate.getMonth() > future.getMonth()){
+				return tasksubset;
+			}
+			else if(dueDate.getMonth() < future.getMonth())){
+				console.log("ERROR");
 			}
 		}
 		return tasksubset;
@@ -102,7 +146,8 @@ angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache', '
 
 	$scope.getFiveDayTasks = function() {
 		  return $http.get('/getFiveDayTasks').success(function(data){
-			     angular.copy(data, $scope.tasks);
+			data.sort(function(a,b){return a.dueDate - b.dueDate});     
+			angular.copy(data, $scope.tasks);
 		  });	
 	};
 

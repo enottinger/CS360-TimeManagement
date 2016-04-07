@@ -275,24 +275,22 @@ router.get('/getTodayTasks', isLoggedin, function(req, res, next) {
 });
 
 router.get('/getDueTasks', isLoggedin, function(req, res, next) {
-        User.findById(req.session.passport.user,function (err, user) { 
+       User.findById(req.session.passport.user,function (err, user) { 
 	   if(err) {return next(err); }
-	   Task.find({'_id': {'$in' : user.tasklist}, "complete": false, "deleted": false}, function(err, items) {
+	   var now = new Date();
+	   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+	   console.log(today);
+	   var tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);
+	   Task.find({'_id': {'$in' : user.tasklist}, "complete": false, "deleted": false, "dueDate":{$lte: tomorrow}}, function(err, items) {
                     console.log("useritems ",user.tasklist);
                     console.log("items ", items);
 		    var tasks = [];
-                    for(var i = 0; i < items.length; i++){
-			
-			//console.log("Dates: " + items[i].dueDate.toDateString() + "+++" + (new Date).toDateString());
-	  	        if(items[i].dueDate != undefined && items[i].dueDate.toDateString() == (new Date).toDateString() || items[i].dueDate <= (new Date)){
-	 	           tasks.push(items[i]);
-                        }
-		    }
-                    res.send(tasks);
+                    res.send(items);
            });
 	   //console.log(tasks);
 	   //res.json(tasks);
- 	});  
+ 	});   
+
 });
 
 router.get('/getFiveDayTasks', isLoggedin, function(req, res, next) {
@@ -301,6 +299,22 @@ router.get('/getFiveDayTasks', isLoggedin, function(req, res, next) {
 	   var today = new Date();
 	   var fiveDaysFuture = new Date().setDate(today.getDate()+5);
 	   Task.find({'_id': {'$in' : user.tasklist}, "complete": false, "deleted": false, "dueDate":{$lte: fiveDaysFuture, $gte: today}}, function(err, items) {
+                    console.log("useritems ",user.tasklist);
+                    console.log("items ", items);
+                    res.send(items);
+           });
+	   //console.log(tasks);
+	   //res.json(tasks);
+ 	});  
+});
+
+router.get('/getHalfYearTasks', isLoggedin, function(req, res, next) {
+        User.findById(req.session.passport.user,function (err, user) { 
+	   if(err) {return next(err); }
+	   var today = new Date();
+	   today.setDate(0);
+	   var halfYearFuture = new Date().setMonth(today.getMonth()+6);
+	   Task.find({'_id': {'$in' : user.tasklist}, "complete": false, "deleted": false, "dueDate":{$lte: halfYearFuture, $gte: today}}, function(err, items) {
                     console.log("useritems ",user.tasklist);
                     console.log("items ", items);
                     res.send(items);
