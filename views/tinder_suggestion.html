@@ -31,6 +31,27 @@
           text-align: center;
 		 
       }
+      .left_sugg {
+          top: 50%;
+          position: absolute;
+          float: left;
+          color: #EDE9E9;
+          height: 20px;
+          z-index: 5;
+          cursor: pointer;
+          left: 5%;
+          text-shadow: -10px 5px 5px grey;
+      }
+      .right_sugg {
+        position: absolute;
+        color: #EDE9E9;
+        height: 20px;
+        top: 50%;
+        left: 82%;
+        z-index: 5;
+        cursor: pointer;
+        text-shadow: -10px 5px 5px grey;
+      }
       
       .task0
       {
@@ -48,6 +69,7 @@
         perspective: 1000;
         -webkit-transition:all linear 0.5s;
         transition:all linear 0.5s;
+        visibility: hidden;
       }
       
       .task1
@@ -66,6 +88,7 @@
         perspective: 1000;
         -webkit-transition:all linear 0.5s;
         transition:all linear 0.5s;
+        visibility: hidden;
       }
       .task2
       {
@@ -83,6 +106,7 @@
         perspective: 1000;
         -webkit-transition:all linear 0.5s;
         transition:all linear 0.5s;
+        visibility: hidden;
       }
       
       .task3
@@ -101,6 +125,7 @@
         perspective: 1000;
         -webkit-transition:all linear 0.5s;
         transition:all linear 0.5s;
+        visibility: hidden;
       }
       
       .md-fab /*action button*/
@@ -187,13 +212,13 @@
       @-webkit-keyframes slide-up
       {
         0%   {top:20%;}
-        100%  {top:0;}
+        100%  {top:-100%;}
       }
 
       @keyframes slide-up
       {
         0%   {top:20%;}
-        100%  {top:0;}
+        100%  {top:-100%;}
       }
       
   </style>
@@ -208,7 +233,7 @@
   <!--
     Your HTML content here
   -->
-	   <md-toolbar class="demo-toolbar md-primary" text-align="center" layout="row" layout-align="center"  style= "background-color:#007aff">
+	   <md-toolbar class="demo-toolbar md-primary" text-align="center" layout="row" layout-align="center"  style= "background-color:#007aff; z-index: 5;">
 			<a href="menu.html">
 			<md-button id="large_icon" class="md-icon-button" ng-click="" style="height: 50px; width: 50px; border-radius: 0px; position: absolute; left: 0px;">
 				<md-icon md-svg-src="img/icons/ic_menu_24px.svg" aria-label="Close dialog"></md-icon>			
@@ -225,8 +250,10 @@
 			
 		</md-toolbar>	
 
-<div class="tasks" id="in_progress" layout-aling="center" style="display: none">
-<div id="doing_task" class="task-card-one" >
+<div class="tasks" id="in_progress" layout-align="center" style="display: none; height:80%;">
+<div class="left_sugg" ng-click="pauseTask()" style="top: 40%;"><md-icon md-svg-src="left_arrow.svg" aria-label="Add Task"></md-icon>Pause</div>
+<div class="right_sugg" ng-click="completeTask()" style="left:80%; top: 40%;">Complete<md-icon md-svg-src="right-arrow.svg" aria-label="right swipe"></md-icon></div>
+<div id="doing_task" class="task1" >
 <md-card md-swipe-left="pauseTask()" md-swipe-right="completeTask()">
     <md-card-content class="one">
     <h2>Task One</h2>
@@ -243,6 +270,8 @@
 </div>
     
 <div class="tasks" id="tasks_container" layout-align="center" style="height: 80%">
+<div class="left_sugg" ng-click="showConfirm()"><md-icon md-svg-src="left_arrow.svg" aria-label="Add Task"></md-icon>Delete</div>
+<div class="right_sugg" ng-click="startTask()">Start<md-icon md-svg-src="right-arrow.svg" aria-label="right swipe"></md-icon></div>
   
 <div id="task0" class="task0" ng-show="task1_slide">
 <md-card md-swipe-right="startTask($event)" md-swipe-left="showConfirm($event)" md-swipe-up="task1_slide=!task1_slide; toggleTasks($event)" md-swipe-down="goToSched($event)" >
